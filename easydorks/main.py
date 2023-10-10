@@ -60,15 +60,25 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
 
 
 def main_loop():
-    logo.pack_forget()
-    b_inicio.pack_forget()
+    for widget in master_frame.winfo_children():
+        widget.forget()
     list_dorks = []
     list_info = []
-    add_button = ctk.CTkButton(master=window)
-    input_frame = ctk.CTkFrame(master=window)
+    add_button = ctk.CTkButton(master=master_frame)
+    input_frame = ctk.CTkFrame(master=master_frame)
+    home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME")
+    home_button.place(anchor = "nw")
     add_dork(input_frame, list_dorks, list_info, add_button)
     print("init succesful")
 
+
+def title_page():
+    for widget in master_frame.winfo_children():
+        widget.forget()
+    master_frame.forget()
+    logo.pack(pady="70 0")
+    b_inicio.pack(pady="20 0")
+    master_frame.pack()
 
 # start menu
 
@@ -81,19 +91,21 @@ window.configure(bg='white')
 
 # logo
 
-master_frame = ctk.CTkFrame(master=)
+master_frame = ctk.CTkFrame(master=window)
+
 img = ctk.CTkImage(
-    light_image=Image.open("logo.png"),
-    dark_image=Image.open("logo.png"),
-    size=(400, 400))
-logo = ctk.CTkLabel(window, text="", image=img)
-logo.pack(pady="70 0")
+        light_image=Image.open("logo.png"),
+        dark_image=Image.open("logo.png"),
+        size=(400, 400))
+logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 
 # init CTkButton
 
-b_inicio = ctk.CTkButton(master=window, text="INICIO", command=main_loop)
-b_inicio.pack(pady="20 0")
+b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop)
 
 # window.bind('<Configure>', )
 
+title_page()
+
 window.mainloop()
+
