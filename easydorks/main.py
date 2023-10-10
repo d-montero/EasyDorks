@@ -1,3 +1,4 @@
+import customtkinter
 import customtkinter as ctk
 from PIL import Image
 
@@ -36,7 +37,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
     inside_of_menu = ctk.StringVar()
     inside_of_menu.set(DORKS[0])
     dork_select = ctk.CTkOptionMenu(master=dork_frame, variable=inside_of_menu, values=DORKS,
-                                    corner_radius=10)
+                                    corner_radius=10, fg_color="white",)
 
     # elements logic
 
@@ -47,7 +48,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
                        frame=dork_frame:
         dork_change(inside, frame_id, list_info, frame, *args))
     b_add = ctk.CTkButton(master=input_frame, text="+",
-                          command=lambda: add_dork(input_frame, list_dorks, list_info, last_add))
+                          command=lambda: add_dork(input_frame, list_dorks, list_info, last_add), width=500)
 
     last_add = b_add
 
@@ -67,7 +68,7 @@ def main_loop():
     add_button = ctk.CTkButton(master=master_frame)
     input_frame = ctk.CTkFrame(master=master_frame)
     home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME")
-    home_button.place(anchor = "nw")
+    home_button.pack(anchor = "nw")
     add_dork(input_frame, list_dorks, list_info, add_button)
     print("init succesful")
 
@@ -77,7 +78,7 @@ def title_page():
         widget.forget()
     master_frame.forget()
     logo.pack(pady="70 0")
-    b_inicio.pack(pady="20 0")
+    b_inicio.pack(pady="200 0")
     master_frame.pack()
 
 # start menu
@@ -85,13 +86,14 @@ def title_page():
 # describe window
 
 window = ctk.CTk()
+customtkinter.set_appearance_mode("light")
 window.geometry("1280x700")
 window.title("EasyDorks")
-window.configure(bg='white')
+window.configure(fg_color="white")
 
 # logo
 
-master_frame = ctk.CTkFrame(master=window)
+master_frame = ctk.CTkFrame(master=window, fg_color="white")
 
 img = ctk.CTkImage(
         light_image=Image.open("logo.png"),
@@ -102,7 +104,7 @@ logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 # init CTkButton
 
 b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop)
-
+b_inicio.configure(text_color="black",fg_color="white", border_color="black", bg_color="white", border_width=2)
 # window.bind('<Configure>', )
 
 title_page()
