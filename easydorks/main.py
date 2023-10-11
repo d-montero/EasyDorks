@@ -1,13 +1,103 @@
+import urllib.parse
+import webbrowser
 import customtkinter
 import customtkinter as ctk
 from PIL import Image
 
+# dork functions
+
+dorksFiletype = [
+    "filetype:pdf",
+    "filetype:doc",
+    "filetype:txt",
+    "filetype:jpg",
+    "filetype:xls",
+    "filetype:ppt",
+    "filetype:html",
+    "filetype:xml",
+]
+
+dorksInurl = [
+    "inurl:"
+]
+
+dorksInsite = [
+    "insite:"
+
+]
+
+dorksExtension = [
+    "extension:json",
+    "extension:xml",
+    # Agrega más dorks personalizados según sea necesario
+]
+
+
+def fileTypeDork(file_type):
+    results = []
+    for dork in dorksFiletype:
+        if dork.split(":")[1] == file_type:
+            query = f"{dork} {file_type}"
+            encoded_query = urllib.parse.quote(query)
+            search_url = f"https://www.google.com/search?q={encoded_query}"
+            results.append(search_url)
+    return results
+
+
+def searchInurlDork(keyword):
+    results = []
+    for dork in dorksInurl:
+        query = f"{dork} {keyword}"
+        encoded_query = urllib.parse.quote(query)
+        search_url = f"https://www.google.com/search?q={encoded_query}"  # Cadena segura para url escapando caracteres especiales que no deberian estar
+        results.append(search_url)
+    return results
+
+
+def searchInsiteDork(keyword):
+    results = []
+    for dork in dorksInsite:
+        query = f"{dork} {keyword}"
+        encoded_query = urllib.parse.quote(query)
+        search_url = f"https://www.google.com/search?q={encoded_query}"
+        results.append(search_url)
+    return results
+
+
+def ExtensionDork(keyword):
+    results = []
+    for dork in dorksFiletype:
+        if dork.split(":")[1] == keyword:
+            query = f"{dork} {keyword}"
+            encoded_query = urllib.parse.quote(query)
+            search_url = f"https://www.google.com/search?q={encoded_query}"
+            results.append(search_url)
+    return results
+
+
+def nada(n):
+    return n
+# do function
+
+str_to_func = {
+    "Elige opción": nada,
+    "archivos tipo:": fileTypeDork,
+    "que la url contenga:": searchInurlDork,
+    "que la página contenga": searchInsiteDork
+}
+
+
+def do_dorks(dorks, info):
+    for dork_num in range(len(dorks)):
+        info_in_dork = info[dork_num][0].get()
+        print(str_to_func[dorks[dork_num].get()](info_in_dork))
+
+
+# interfaces functions
 
 def get_info_by_dork(dork, frame):
-    if dork == "archivos tipo:":
+    if dork != "Elige opción":
         return [ctk.CTkEntry(master=frame)]
-    elif dork == "que la url contenga:":
-        return [ctk.CTkEntry(master=frame), ctk.CTkEntry(master=frame)]
     else:
         return []
 
@@ -32,13 +122,13 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
     DORKS = [
         "Elige opción",
         "archivos tipo:",
-        "que la url contenga:"
+        "que la url contenga:",
+        "que la página contenga"
     ]
     inside_of_menu = ctk.StringVar()
     inside_of_menu.set(DORKS[0])
     dork_select = ctk.CTkOptionMenu(master=dork_frame, variable=inside_of_menu, values=DORKS,
-                                    corner_radius=10, fg_color="white",)
-
+                                    corner_radius=10, fg_color="white", )
     # elements logic
 
     list_dorks.append(dork_select)
@@ -68,8 +158,14 @@ def main_loop():
     add_button = ctk.CTkButton(master=master_frame)
     input_frame = ctk.CTkFrame(master=master_frame)
     home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME")
-    home_button.pack(anchor = "nw")
+    home_button.pack(anchor="nw")
     add_dork(input_frame, list_dorks, list_info, add_button)
+    do_button = ctk.CTkButton(master=master_frame,
+                              command=lambda dorks=list_dorks, info=list_info: do_dorks(dorks, info), text="DO")
+    do_button.pack(anchor="se")
+    link = ctk.CTkButton(master=master_frame, text="SEARCH:", cursor="hand2", fg_color="red")
+    link.pack(anchor="se", pady="20 0")
+    link.bind("<Button-1>", lambda e: webbrowser.open_new("https://www.google.com"))
     print("init succesful")
 
 
@@ -81,9 +177,10 @@ def title_page():
     b_inicio.pack(pady="200 0")
     master_frame.pack()
 
-# start menu
 
+# start menu
 # describe window
+
 
 window = ctk.CTk()
 customtkinter.set_appearance_mode("light")
@@ -96,18 +193,16 @@ window.configure(fg_color="white")
 master_frame = ctk.CTkFrame(master=window, fg_color="white")
 
 img = ctk.CTkImage(
-        light_image=Image.open("logo.png"),
-        dark_image=Image.open("logo.png"),
-        size=(400, 400))
+    light_image=Image.open("logo.png"),
+    dark_image=Image.open("logo.png"),
+    size=(400, 400))
 logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 
 # init CTkButton
 
 b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop)
-b_inicio.configure(text_color="black",fg_color="white", border_color="black", bg_color="white", border_width=2)
-# window.bind('<Configure>', )
+b_inicio.configure(text_color="black", fg_color="white", border_color="black", bg_color="white", border_width=2)
 
 title_page()
 
 window.mainloop()
-
