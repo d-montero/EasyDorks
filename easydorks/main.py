@@ -89,7 +89,12 @@ str_to_func = {
 
 def do_dorks(dorks, info):
     for dork_num in range(len(dorks)):
-        info_in_dork = info[dork_num][0].get()
+        info_in_dork = info[dork_num]
+        if not info_in_dork:
+            info_in_dork = "nada"
+        else:
+            info_in_dork = info_in_dork[0].get()
+        print(info_in_dork)
         print(str_to_func[dorks[dork_num].get()](info_in_dork))
 
 
