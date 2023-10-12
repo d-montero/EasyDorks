@@ -40,7 +40,7 @@ def fileSaver(data):
     file.write("\n")
     file.close()
     
-if data.startswith("s" or "S"):
+if data.startswith("S") or data.startswith("s"):
     log = input("Dime el nombre del fichero: ")
     print("\n" + " " + "»" * 78 + "\n")
 else:
@@ -78,7 +78,7 @@ def fileTypeDork(file_type):
     results = []
     for dork in dorksFiletype:
         if(dork.split(":")[1] == file_type):
-            query = f"{dork} {file_type}"
+            query = f"{dork}"
             encoded_query = urllib.parse.quote(query)
             search_url = f"https://www.google.com/search?q={encoded_query}"
             results.append(search_url)
@@ -113,19 +113,6 @@ def ExtensionDork(keyword):
             search_url = f"https://www.google.com/search?q={encoded_query}"
             results.append(search_url)
     return results
-
-
-def searchCombinedDorks(dork_functions):
-    combined_results = []
-    for dork_function in dork_functions:
-        combined_results.append(dork_function)
-    return combined_results
-
-dork_functions = [fileTypeDork, searchInurlDork, searchInsiteDork]
-search_results = searchCombinedDorks(dork_functions)
-
-if log:
-    fileSaver(search_results,log + ".txt")
     
     
 def dorks(): #Si el usuario quiere buscar un dork en especifico 
@@ -147,7 +134,7 @@ def dorks(): #Si el usuario quiere buscar un dork en especifico
 
             data = (counter, results)
 
-            logger(data)
+            fileSaver(data)
             time.sleep(0.1)
 
     except KeyboardInterrupt:
@@ -172,4 +159,7 @@ def combineGoogleSearchUrls(urls, operator="AND"):
 
 
 selected_operator = "AND" 
-combined_url = combineGoogleSearchUrls([fileTypeDork("pdf"), searchInsiteDork("hola")], selected_operator) #ejemplo
+combined_url = combineGoogleSearchUrls([fileTypeDork("pdf"), searchInsiteDork("hola")], selected_operator) 
+
+if log:
+    fileSaver(combined_url,log + ".txt")
