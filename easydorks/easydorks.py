@@ -151,15 +151,16 @@ def dorks(): #Si el usuario quiere buscar un dork en especifico
     sys.exit()
 
 
-def combineGoogleSearchUrls(urls, operator="AND"):
+def combineGoogleSearchUrls(urls, operator):
     combined_query = f"{operator} ".join(urls)
     encoded_query = urllib.parse.quote(combined_query)
     search_url = f"https://www.google.com/search?q={encoded_query}"
     return search_url
 
 
-selected_operator = "AND" 
-combined_url = combineGoogleSearchUrls([fileTypeDork("pdf"), searchInsiteDork("hola")], selected_operator) 
+selected_operatorAND = "AND"
+selected_operatorOR = "OR"
+combined_url = combineGoogleSearchUrls([fileTypeDork("pdf"), searchInsiteDork("hola")], selected_operatorAND) #ejemplo de llamada a la función
 
 if log:
     fileSaver(combined_url,log + ".txt")
