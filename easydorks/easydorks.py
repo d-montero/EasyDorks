@@ -162,3 +162,14 @@ def dorks(): #Si el usuario quiere buscar un dork en especifico
     print ("\n\t\t\t\t\033[EasyDorks\033[0m")
     print ("\t\t\033[1;91m[!] Nos vemos, Hacking \033[0m😃\n\n")
     sys.exit()
+
+
+def combineGoogleSearchUrls(urls, operator="AND"):
+    combined_query = f"{operator} ".join(urls)
+    encoded_query = urllib.parse.quote(combined_query)
+    search_url = f"https://www.google.com/search?q={encoded_query}"
+    return search_url
+
+
+selected_operator = "AND" 
+combined_url = combineGoogleSearchUrls([fileTypeDork("pdf"), searchInsiteDork("hola")], selected_operator) #ejemplo
