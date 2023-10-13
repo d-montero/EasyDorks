@@ -4,6 +4,10 @@ import customtkinter
 import customtkinter as ctk
 from PIL import Image
 
+
+result = "https://www.google.com"
+
+
 # dork functions
 
 dorksFiletype = [
@@ -22,7 +26,7 @@ dorksInurl = [
 ]
 
 dorksInsite = [
-    "insite:"
+    "intext:"
 
 ]
 
@@ -75,9 +79,12 @@ def ExtensionDork(keyword):
     return results
 
 
-def nada(n):
-    return n
+def nada(arg):
+    return ""
+
+
 # do function
+
 
 str_to_func = {
     "Elige opción": nada,
@@ -87,7 +94,15 @@ str_to_func = {
 }
 
 
-def do_dorks(dorks, info):
+def combineGoogleSearchUrls(urls, operator="AND"):
+    combined_query = f"%20{operator}%20".join(urls)
+    # encoded_query = urllib.parse.quote(combined_query)
+    search_url = f"https://www.google.com/search?q={combined_query}"
+    return search_url
+
+
+def do_dorks(dorks, info, label):
+    urls = []
     for dork_num in range(len(dorks)):
         info_in_dork = info[dork_num]
         if not info_in_dork:
@@ -95,14 +110,22 @@ def do_dorks(dorks, info):
         else:
             info_in_dork = info_in_dork[0].get()
         print(info_in_dork)
-        print(str_to_func[dorks[dork_num].get()](info_in_dork))
+        url = str_to_func[dorks[dork_num].get()](info_in_dork)[0]
+        print(url)
+        urls.append(url)
+    for i in range(len(urls)):
+        urls[i] = urls[i][urls[i].index("q=") + len("q="):len(urls[i])]
+    global result
+    result = combineGoogleSearchUrls(urls)
+    print(result)
+    label.configure(text=result)
 
 
 # interfaces functions
 
 def get_info_by_dork(dork, frame):
     if dork != "Elige opción":
-        return [ctk.CTkEntry(master=frame,border_color="black",border_width=2)]
+        return [ctk.CTkEntry(master=frame, border_color="black", border_width=2)]
     else:
         return []
 
@@ -123,7 +146,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
 
     # start elements
 
-    dork_frame = ctk.CTkFrame(master=input_frame, border_color="white", fg_color="white", bg_color="white",border_width=2)
+    dork_frame = ctk.CTkFrame(master=input_frame, border_color="white", fg_color="white", bg_color="white", border_width=2)
     DORKS = [
         "Elige opción",
         "archivos tipo:",
@@ -141,7 +164,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
     dork_select.configure(
         command=lambda *args, inside=inside_of_menu, frame_id=list_dorks.index(dork_select), dork_info=list_info,
                        frame=dork_frame:
-        dork_change(inside, frame_id, list_info, frame, *args),button_color="white", text_color="black", bg_color="white", button_hover_color="red")
+        dork_change(inside, frame_id, list_info, frame, *args), button_color="white", text_color="black", bg_color="white", button_hover_color="red")
     b_add = ctk.CTkButton(master=input_frame, text="+",
                           command=lambda: add_dork(input_frame, list_dorks, list_info, last_add), width=500, fg_color="black", hover_color="red", border_color="black", border_width=2)
 
@@ -161,16 +184,18 @@ def main_loop():
     list_dorks = []
     list_info = []
     add_button = ctk.CTkButton(master=master_frame)
-    input_frame = ctk.CTkFrame(master=master_frame, fg_color="white",border_color="black", border_width=2)
+    input_frame = ctk.CTkFrame(master=master_frame, fg_color="white", border_color="black", border_width=2)
     home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME", fg_color="white", hover_color="gray", border_color="black", border_width=2, text_color="black")
     home_button.pack(anchor="nw")
     add_dork(input_frame, list_dorks, list_info, add_button)
+    result_label = ctk.CTkLabel(master=master_frame, text=result)
+    result_label.pack()
     do_button = ctk.CTkButton(master=master_frame,
-                              command=lambda dorks=list_dorks, info=list_info: do_dorks(dorks, info), text="DO", fg_color="black", hover_color="red")
+                              command=lambda dorks=list_dorks, info=list_info, label=result_label: do_dorks(dorks, info, result_label), text="DO", fg_color="black", hover_color="red")
     do_button.pack(anchor="se")
     link = ctk.CTkButton(master=master_frame, text="SEARCH:", cursor="hand2", fg_color="black", hover_color="red")
     link.pack(anchor="se", pady="20 0")
-    link.bind("<Button-1>", lambda e: webbrowser.open_new("https://www.google.com"))
+    link.bind("<Button-1>", lambda e: webbrowser.open_new(result))
     print("init succesful")
 
 
