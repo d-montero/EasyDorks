@@ -41,7 +41,7 @@ def fileTypeDork(file_type):
     results = []
     for dork in dorksFiletype:
         if dork.split(":")[1] == file_type:
-            query = f"{dork} {file_type}"
+            query = f"{dork}"
             encoded_query = urllib.parse.quote(query)
             search_url = f"https://www.google.com/search?q={encoded_query}"
             results.append(search_url)
