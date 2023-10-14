@@ -51,7 +51,7 @@ def fileTypeDork(file_type):
 def searchInurlDork(keyword):
     results = []
     for dork in dorksInurl:
-        query = f"{dork} {keyword}"
+        query = f"{dork}{keyword}"
         encoded_query = urllib.parse.quote(query)
         search_url = f"https://www.google.com/search?q={encoded_query}"  # Cadena segura para url escapando caracteres especiales que no deberian estar
         results.append(search_url)
@@ -61,7 +61,7 @@ def searchInurlDork(keyword):
 def searchInsiteDork(keyword):
     results = []
     for dork in dorksInsite:
-        query = f"{dork} {keyword}"
+        query = f"{dork}{keyword}"
         encoded_query = urllib.parse.quote(query)
         search_url = f"https://www.google.com/search?q={encoded_query}"
         results.append(search_url)
@@ -80,7 +80,7 @@ def ExtensionDork(keyword):
 
 
 def nada(arg):
-    return ""
+    return [""]
 
 
 # do function
@@ -111,8 +111,9 @@ def do_dorks(dorks, info, label):
             info_in_dork = info_in_dork[0].get()
         print(info_in_dork)
         url = str_to_func[dorks[dork_num].get()](info_in_dork)[0]
-        print(url)
-        urls.append(url)
+        if url != "":
+            print(url)
+            urls.append(url)
     for i in range(len(urls)):
         urls[i] = urls[i][urls[i].index("q=") + len("q="):len(urls[i])]
     global result
