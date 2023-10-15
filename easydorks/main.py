@@ -1,6 +1,5 @@
 import urllib.parse
 import webbrowser
-import customtkinter
 import customtkinter as ctk
 from PIL import Image
 
@@ -190,7 +189,7 @@ def main_loop():
     home_button.pack(anchor="nw")
     add_dork(input_frame, list_dorks, list_info, add_button)
     result_label = ctk.CTkLabel(master=master_frame, text=result)
-    result_label.pack()
+    result_label.pack(pady="0 30")
     do_button = ctk.CTkButton(master=master_frame,
                               command=lambda dorks=list_dorks, info=list_info, label=result_label: do_dorks(dorks, info, result_label), text="DO", fg_color="black", hover_color="blue")
     do_button.pack(anchor="se")
@@ -214,7 +213,7 @@ def title_page():
 
 
 window = ctk.CTk()
-customtkinter.set_appearance_mode("light")
+ctk.set_appearance_mode("light")
 window.geometry("1280x700")
 window.title("EasyDorks")
 window.configure(fg_color="white")
