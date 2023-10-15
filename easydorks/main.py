@@ -157,7 +157,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
     inside_of_menu = ctk.StringVar()
     inside_of_menu.set(DORKS[0])
     dork_select = ctk.CTkOptionMenu(master=dork_frame, variable=inside_of_menu, values=DORKS,
-                                    corner_radius=10, fg_color="white", text_color="black", width=200, bg_color="white", button_color="white", button_hover_color="red", dropdown_fg_color="white", dropdown_hover_color="red")
+                                    corner_radius=10, fg_color="white", text_color="black", width=250, bg_color="white", button_color="white", button_hover_color="yellow", dropdown_fg_color="white", dropdown_hover_color="yellow")
     # elements logic
 
     list_dorks.append(dork_select)
@@ -165,16 +165,16 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
     dork_select.configure(
         command=lambda *args, inside=inside_of_menu, frame_id=list_dorks.index(dork_select), dork_info=list_info,
                        frame=dork_frame:
-        dork_change(inside, frame_id, list_info, frame, *args), button_color="white", text_color="black", bg_color="white", button_hover_color="red")
+        dork_change(inside, frame_id, list_info, frame, *args), button_color="white", text_color="black", bg_color="white", button_hover_color="yellow")
     b_add = ctk.CTkButton(master=input_frame, text="+",
-                          command=lambda: add_dork(input_frame, list_dorks, list_info, last_add), width=500, fg_color="black", hover_color="red", border_color="black", border_width=2)
+                          command=lambda: add_dork(input_frame, list_dorks, list_info, last_add), width=400, fg_color="black", hover_color="blue", border_color="black", border_width=2)
 
     last_add = b_add
 
     # show elements
 
     dork_select.pack(side="left")
-    dork_frame.pack(side="top", anchor='nw', pady="50")
+    dork_frame.pack(side="top", anchor='nw', pady="20", padx="10")
     b_add.pack(side="left", padx="10 0")
     input_frame.pack(side="top", anchor='nw', padx="110", pady="70")
 
@@ -186,15 +186,15 @@ def main_loop():
     list_info = []
     add_button = ctk.CTkButton(master=master_frame)
     input_frame = ctk.CTkFrame(master=master_frame, fg_color="white", border_color="black", border_width=2)
-    home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME", fg_color="white", hover_color="gray", border_color="black", border_width=2, text_color="black")
+    home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME", fg_color="white", hover_color="yellow", border_color="black", border_width=2, text_color="black")
     home_button.pack(anchor="nw")
     add_dork(input_frame, list_dorks, list_info, add_button)
     result_label = ctk.CTkLabel(master=master_frame, text=result)
     result_label.pack()
     do_button = ctk.CTkButton(master=master_frame,
-                              command=lambda dorks=list_dorks, info=list_info, label=result_label: do_dorks(dorks, info, result_label), text="DO", fg_color="black", hover_color="red")
+                              command=lambda dorks=list_dorks, info=list_info, label=result_label: do_dorks(dorks, info, result_label), text="DO", fg_color="black", hover_color="blue")
     do_button.pack(anchor="se")
-    link = ctk.CTkButton(master=master_frame, text="SEARCH:", cursor="hand2", fg_color="black", hover_color="red")
+    link = ctk.CTkButton(master=master_frame, text="SEARCH:", cursor="hand2", fg_color="black", hover_color="blue")
     link.pack(anchor="se", pady="20 0")
     link.bind("<Button-1>", lambda e: webbrowser.open_new(result))
     print("init succesful")
@@ -232,7 +232,7 @@ logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 # init CTkButton
 
 b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop)
-b_inicio.configure(text_color="black", fg_color="white", border_color="black", bg_color="white", border_width=2, hover_color="red")
+b_inicio.configure(text_color="black", fg_color="white", border_color="black", bg_color="white", border_width=2, hover_color="yellow")
 
 title_page()
 
