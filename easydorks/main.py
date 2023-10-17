@@ -187,6 +187,8 @@ def main_loop():
     input_frame = ctk.CTkFrame(master=master_frame, fg_color="white", border_color="black", border_width=2)
     home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME", fg_color="white", hover_color="yellow", border_color="black", border_width=2, text_color="black")
     home_button.pack(anchor="nw")
+    us_button = ctk.CTkButton(master=master_frame, command=about_us, text="ABOUT US", fg_color="white", hover_color="yellow", border_color="black", border_width=2, text_color="black")
+    us_button.pack(anchor="nw")
     add_dork(input_frame, list_dorks, list_info, add_button)
     result_label = ctk.CTkLabel(master=master_frame, text=result)
     result_label.pack(pady="0 30")
@@ -204,8 +206,20 @@ def title_page():
         widget.forget()
     master_frame.forget()
     logo.pack(pady="70 0")
-    b_inicio.pack(pady="200 0")
+    b_inicio.pack(pady="180 0")
     master_frame.pack()
+
+
+def about_us():
+    for widget in master_frame.winfo_children():
+        widget.forget()
+    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color="white",
+                                hover_color="yellow", border_color="black", border_width=2, text_color="black")
+    back_button.pack(pady=30)
+    us = ctk.CTkLabel(master=master_frame, text="Programa realizado por el grupo Agile Eagles\n\n"
+                                                "Ingeniería de Software en el grado de Ciberseguridad de la Universidad Rey Juan Carlos\n\n\n"
+                                                "Correo de contacto:\tcontact@agileagles.com\n\n")
+    us.pack(pady="200")
 
 
 # start menu
