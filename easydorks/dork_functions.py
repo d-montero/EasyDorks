@@ -19,13 +19,6 @@ dorksInurl = [
 
 dorksInsite = [
     "intext:"
-
-]
-
-dorksExtension = [
-    "extension:json",
-    "extension:xml",
-    # Agrega más dorks personalizados según sea necesario
 ]
 
 
@@ -57,17 +50,6 @@ def searchInsiteDork(keyword):
         encoded_query = urllib.parse.quote(query)
         search_url = f"https://www.google.com/search?q={encoded_query}"
         results.append(search_url)
-    return results
-
-
-def ExtensionDork(keyword):
-    results = []
-    for dork in dorksFiletype:
-        if dork.split(":")[1] == keyword:
-            query = f"{dork} {keyword}"
-            encoded_query = urllib.parse.quote(query)
-            search_url = f"https://www.google.com/search?q={encoded_query}"
-            results.append(search_url)
     return results
 
 

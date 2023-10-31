@@ -6,8 +6,13 @@ from PIL import Image
 # https://github.com/d-montero/EasyDorks
 result = "https://www.google.com"
 
-# do function
 
+def clear_page():
+    for widget in master_frame.winfo_children():
+        widget.forget()
+
+
+# do function
 
 str_to_func = {
     "Elige opción": df.nada,
@@ -15,7 +20,6 @@ str_to_func = {
     "que la url contenga:": df.searchInurlDork,
     "que la página contenga": df.searchInsiteDork
 }
-
 
 def combineGoogleSearchUrls(urls, operator="AND"):
     combined_query = f"%20{operator}%20".join(urls)
@@ -136,6 +140,7 @@ def title_page():
     master_frame.forget()
     logo.pack(pady="70 0")
     b_inicio.pack(pady="180 0")
+    b_wiki.pack()
     master_frame.pack()
 
 
@@ -152,9 +157,13 @@ def about_us():
     us.pack(pady="200")
 
 
-def clear_page():
-    for widget in master_frame.winfo_children():
-        widget.forget()
+def wiki():
+    wiki_window = ctk.CTk()
+    ctk.set_appearance_mode("light")
+    wiki_window.geometry("700x800")
+    wiki_window.title("WIKI")
+    wiki_window.configure(fg_color="cyan")
+    wiki_window.mainloop()
 
 
 # init
@@ -180,5 +189,8 @@ logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop,
                          text_color="black", fg_color="white", border_color="black", bg_color="white", border_width=2, hover_color="yellow")
 
+b_wiki = ctk.CTkButton(master=master_frame, command=wiki, text="WIKI")
+
 title_page()
+
 window.mainloop()
