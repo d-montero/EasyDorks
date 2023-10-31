@@ -19,7 +19,6 @@ str_to_func = {
 
 def combineGoogleSearchUrls(urls, operator="AND"):
     combined_query = f"%20{operator}%20".join(urls)
-    # encoded_query = urllib.parse.quote(combined_query)
     search_url = f"https://www.google.com/search?q={combined_query}"
     return search_url
 
@@ -108,8 +107,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
 
 
 def main_loop():
-    for widget in master_frame.winfo_children():
-        widget.forget()
+    clear_page()
     list_dorks = []
     list_info = []
     add_button = ctk.CTkButton(master=master_frame)
@@ -130,18 +128,21 @@ def main_loop():
     print("init succesful")
 
 
+# title page creation
+
+
 def title_page():
-    for widget in master_frame.winfo_children():
-        widget.forget()
+    clear_page()
     master_frame.forget()
     logo.pack(pady="70 0")
     b_inicio.pack(pady="180 0")
     master_frame.pack()
 
 
+# about us page creation
+
 def about_us():
-    for widget in master_frame.winfo_children():
-        widget.forget()
+    clear_page()
     back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color="white",
                                 hover_color="yellow", border_color="black", border_width=2, text_color="black")
     back_button.pack(pady=30)
@@ -151,9 +152,12 @@ def about_us():
     us.pack(pady="200")
 
 
-# start menu
-# describe window
+def clear_page():
+    for widget in master_frame.winfo_children():
+        widget.forget()
 
+
+# init
 
 window = ctk.CTk()
 ctk.set_appearance_mode("light")
@@ -171,11 +175,10 @@ img = ctk.CTkImage(
     size=(400, 400))
 logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 
-# init CTkButton
+# start button
 
-b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop)
-b_inicio.configure(text_color="black", fg_color="white", border_color="black", bg_color="white", border_width=2, hover_color="yellow")
+b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop,
+                         text_color="black", fg_color="white", border_color="black", bg_color="white", border_width=2, hover_color="yellow")
 
 title_page()
-
 window.mainloop()
