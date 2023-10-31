@@ -3,7 +3,7 @@ import webbrowser
 import customtkinter as ctk
 from PIL import Image
 
-
+# https://github.com/d-montero/EasyDorks
 result = "https://www.google.com"
 
 
@@ -130,7 +130,13 @@ def get_info_by_dork(dork, frame):
         return []
 
 
-def dork_change(name, frame_id, dork_info, frame, *args):
+def dork_change(name, frame_id, dork_info, frame, last_add, *args):
+    if name.get() != "Elige opción":
+        if frame_id == len(dork_info)-1:
+            last_add.pack(side="left", padx="10 0")
+    else:
+        last_add.pack_forget()
+
     print(name.get() + " " + str(frame_id))
     for elem in dork_info[frame_id]:
         elem.pack_forget()
@@ -161,20 +167,19 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
 
     list_dorks.append(dork_select)
     list_info.append([])
-    dork_select.configure(
-        command=lambda *args, inside=inside_of_menu, frame_id=list_dorks.index(dork_select), dork_info=list_info,
-                       frame=dork_frame:
-        dork_change(inside, frame_id, list_info, frame, *args), button_color="white", text_color="black", bg_color="white", button_hover_color="yellow")
     b_add = ctk.CTkButton(master=input_frame, text="+",
                           command=lambda: add_dork(input_frame, list_dorks, list_info, last_add), width=400, fg_color="black", hover_color="blue", border_color="black", border_width=2)
 
     last_add = b_add
-
+    dork_select.configure(
+        command=lambda *args, inside=inside_of_menu, frame_id=list_dorks.index(dork_select), dork_info=list_info,
+                       frame=dork_frame, add=last_add:
+        dork_change(inside, frame_id, list_info, frame, add, *args), button_color="white", text_color="black",
+        bg_color="white", button_hover_color="yellow")
     # show elements
 
     dork_select.pack(side="left")
     dork_frame.pack(side="top", anchor='nw', pady="20", padx="10")
-    b_add.pack(side="left", padx="10 0")
     input_frame.pack(side="top", anchor='nw', padx="110", pady="70")
 
 
