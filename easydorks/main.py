@@ -21,7 +21,8 @@ str_to_func = {
     "que la página contenga": df.searchInsiteDork
 }
 
-def combineGoogleSearchUrls(urls, operator="AND"):
+
+def combine_google_search_urls(urls, operator="AND"):
     combined_query = f"%20{operator}%20".join(urls)
     search_url = f"https://www.google.com/search?q={combined_query}"
     return search_url
@@ -43,7 +44,7 @@ def do_dorks(dorks, info, label):
     for i in range(len(urls)):
         urls[i] = urls[i][urls[i].index("q=") + len("q="):len(urls[i])]
     global result
-    result = combineGoogleSearchUrls(urls)
+    result = combine_google_search_urls(urls)
     print(result)
     label.configure(text=result)
 
@@ -59,7 +60,7 @@ def get_info_by_dork(dork, frame):
 
 def dork_change(name, frame_id, dork_info, frame, last_add, *args):
     if name.get() != "Elige opción":
-        if frame_id == len(dork_info)-1:
+        if frame_id == len(dork_info) - 1:
             last_add.pack(side="left", padx="10 0")
     else:
         last_add.pack_forget()
@@ -79,28 +80,31 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
 
     # start elements
 
-    dork_frame = ctk.CTkFrame(master=input_frame, border_color="white", fg_color="white", bg_color="white", border_width=2)
-    DORKS = [
+    dork_frame = ctk.CTkFrame(master=input_frame, border_color="white", fg_color="white", bg_color="white",
+                              border_width=2)
+    dorks = [
         "Elige opción",
         "archivos tipo:",
         "que la url contenga:",
         "que la página contenga"
     ]
     inside_of_menu = ctk.StringVar()
-    inside_of_menu.set(DORKS[0])
-    dork_select = ctk.CTkOptionMenu(master=dork_frame, variable=inside_of_menu, values=DORKS,
-                                    corner_radius=10, fg_color="white", text_color="black", width=250, bg_color="white", button_color="white", button_hover_color="yellow", dropdown_fg_color="white", dropdown_hover_color="yellow")
+    inside_of_menu.set(dorks[0])
+    dork_select = ctk.CTkOptionMenu(master=dork_frame, variable=inside_of_menu, values=dorks,
+                                    corner_radius=10, fg_color="white", text_color="black", width=250, bg_color="white",
+                                    button_color="white", button_hover_color="yellow", dropdown_fg_color="white",
+                                    dropdown_hover_color="yellow")
     # elements logic
 
     list_dorks.append(dork_select)
     list_info.append([])
     b_add = ctk.CTkButton(master=input_frame, text="+",
-                          command=lambda: add_dork(input_frame, list_dorks, list_info, last_add), width=400, fg_color="black", hover_color="blue", border_color="black", border_width=2)
+                          command=lambda: add_dork(input_frame, list_dorks, list_info, last_add),
+                          width=400, fg_color="black", hover_color="blue", border_color="black", border_width=2)
 
     last_add = b_add
     dork_select.configure(
-        command=lambda *args, inside=inside_of_menu, frame_id=list_dorks.index(dork_select), dork_info=list_info,
-                       frame=dork_frame, add=last_add:
+        command=lambda *args, inside=inside_of_menu, frame_id=list_dorks.index(dork_select), dork_info=list_info, frame=dork_frame, add=last_add:
         dork_change(inside, frame_id, list_info, frame, add, *args), button_color="white", text_color="black",
         bg_color="white", button_hover_color="yellow")
     # show elements
@@ -116,15 +120,19 @@ def main_loop():
     list_info = []
     add_button = ctk.CTkButton(master=master_frame)
     input_frame = ctk.CTkFrame(master=master_frame, fg_color="white", border_color="black", border_width=2)
-    home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME", fg_color="white", hover_color="yellow", border_color="black", border_width=2, text_color="black")
+    home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME", fg_color="white",
+                                hover_color="yellow", border_color="black", border_width=2, text_color="black")
     home_button.pack(anchor="nw")
-    us_button = ctk.CTkButton(master=master_frame, command=about_us, text="ABOUT US", fg_color="white", hover_color="yellow", border_color="black", border_width=2, text_color="black")
+    us_button = ctk.CTkButton(master=master_frame, command=about_us, text="ABOUT US", fg_color="white",
+                              hover_color="yellow", border_color="black", border_width=2, text_color="black")
     us_button.pack(anchor="nw")
     add_dork(input_frame, list_dorks, list_info, add_button)
     result_label = ctk.CTkLabel(master=master_frame, text=result)
     result_label.pack(pady="0 30")
     do_button = ctk.CTkButton(master=master_frame,
-                              command=lambda dorks=list_dorks, info=list_info, label=result_label: do_dorks(dorks, info, result_label), text="DO", fg_color="black", hover_color="blue")
+                              command=lambda dorks=list_dorks, info=list_info, label=result_label: do_dorks(dorks, info,
+                                                                                                            result_label),
+                              text="DO", fg_color="black", hover_color="blue")
     do_button.pack(anchor="se")
     link = ctk.CTkButton(master=master_frame, text="SEARCH:", cursor="hand2", fg_color="black", hover_color="blue")
     link.pack(anchor="se", pady="20 0")
@@ -187,7 +195,8 @@ logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 # start button
 
 b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop,
-                         text_color="black", fg_color="white", border_color="black", bg_color="white", border_width=2, hover_color="yellow")
+                         text_color="black", fg_color="white", border_color="black", bg_color="white",
+                         border_width=2, hover_color="yellow")
 
 b_wiki = ctk.CTkButton(master=master_frame, command=wiki, text="WIKI")
 
