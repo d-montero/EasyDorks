@@ -1,6 +1,7 @@
 import webbrowser
 import customtkinter as ctk
 import dork_functions as df
+import dork_wiki as dw
 from PIL import Image
 
 # https://github.com/d-montero/EasyDorks
@@ -198,7 +199,7 @@ b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop,
                          text_color="black", fg_color="white", border_color="black", bg_color="white",
                          border_width=2, hover_color="yellow")
 
-b_wiki = ctk.CTkButton(master=master_frame, command=wiki, text="WIKI")
+b_wiki = ctk.CTkButton(master=master_frame, command=dw.init, text="WIKI")
 
 title_page()
 
