@@ -199,7 +199,7 @@ b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop,
                          text_color="black", fg_color="white", border_color="black", bg_color="white",
                          border_width=2, hover_color="yellow")
 
-b_wiki = ctk.CTkButton(master=master_frame, command=dw.init, text="WIKI")
+b_wiki = ctk.CTkButton(master=master_frame, command=dw.wiki, text="WIKI")
 
 title_page()
 
