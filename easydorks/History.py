@@ -43,6 +43,6 @@ def readLastFive():
         print("Fichero no encontrado")  
             
 
-#writeLastFive("jose")
-#writeLastFive("prueba")
-#readLastFive()
+writeLastFive("jose")
+writeLastFive("prueba")
+readLastFive()

@@ -188,8 +188,8 @@ window.configure(fg_color="white")
 master_frame = ctk.CTkFrame(master=window, fg_color="white")
 
 img = ctk.CTkImage(
-    light_image=Image.open("logo.png"),
-    dark_image=Image.open("logo.png"),
+    light_image=Image.open("easydorks\logo.png"),
+    dark_image=Image.open("easydorks\logo.png"),
     size=(400, 400))
 logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 
