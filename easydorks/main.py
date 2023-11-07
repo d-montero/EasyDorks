@@ -83,7 +83,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
 
     # start elements
 
-    dork_frame = ctk.CTkFrame(master=input_frame, border_color="white", fg_color="white", bg_color="white",
+    dork_frame = ctk.CTkFrame(master=input_frame, border_color=("white","black"), fg_color=("white","black"), bg_color=("white","black"),
                               border_width=2)
     dorks = [
         "Elige opción",
@@ -94,9 +94,9 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
     inside_of_menu = ctk.StringVar()
     inside_of_menu.set(dorks[0])
     dork_select = ctk.CTkOptionMenu(master=dork_frame, variable=inside_of_menu, values=dorks,
-                                    corner_radius=10, fg_color="white", text_color="black", width=250, bg_color="white",
-                                    button_color="white", button_hover_color="yellow", dropdown_fg_color="white",
-                                    dropdown_hover_color="yellow")
+                                    corner_radius=10, fg_color=("white","black"), text_color=("black","white"), width=250, bg_color=("white","black"),
+                                    button_color=("white","black"), button_hover_color=("yellow","purple"), dropdown_fg_color=("white","black"),
+                                    dropdown_hover_color=("yellow","purple"))
     # elements logic
 
     list_dorks.append(dork_select)
@@ -108,8 +108,8 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
     last_add = b_add
     dork_select.configure(
         command=lambda *args, inside=inside_of_menu, frame_id=list_dorks.index(dork_select), dork_info=list_info, frame=dork_frame, add=last_add:
-        dork_change(inside, frame_id, list_info, frame, add, *args), button_color="white", text_color="black",
-        bg_color="white", button_hover_color="yellow")
+        dork_change(inside, frame_id, list_info, frame, add, *args), button_color=("white","black"), text_color=("black","white"),
+        bg_color=("white"), button_hover_color=("yellow","purple"))
     # show elements
 
     dork_select.pack(side="left")
@@ -122,12 +122,12 @@ def main_loop():
     list_dorks = []
     list_info = []
     add_button = ctk.CTkButton(master=master_frame)
-    input_frame = ctk.CTkFrame(master=master_frame, fg_color="white", border_color="black", border_width=2)
-    home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME", fg_color="white",
-                                hover_color="yellow", border_color=("black","white"), border_width=2, text_color="black")
+    input_frame = ctk.CTkFrame(master=master_frame, fg_color=("white","black"), border_color=("black","white"), border_width=2)
+    home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME", fg_color=("white","black"),
+                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
     home_button.pack(anchor="nw")
-    us_button = ctk.CTkButton(master=master_frame, command=about_us, text="ABOUT US", fg_color="white",
-                              hover_color="yellow", border_color="black", border_width=2, text_color="black")
+    us_button = ctk.CTkButton(master=master_frame, command=about_us, text="ABOUT US", fg_color=("white","black"),
+                              hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
     us_button.pack(anchor="nw")
     add_dork(input_frame, list_dorks, list_info, add_button)
     result_label = ctk.CTkLabel(master=master_frame, text=result)
@@ -135,12 +135,12 @@ def main_loop():
     do_button = ctk.CTkButton(master=master_frame,
                               command=lambda dorks=list_dorks, info=list_info, label=result_label: do_dorks(dorks, info,
                                                                                                             result_label),
-                              text="DO", fg_color="black", hover_color="blue",border_color=("black","white"), border_width=2)
+                              text="DO", fg_color="black", hover_color=("blue","purple"),border_color=("black","white"), border_width=2)
     do_button.pack(anchor="se")
-    link = ctk.CTkButton(master=master_frame, text="SEARCH:", cursor="hand2", fg_color="black", hover_color="blue", border_color=("black","white"), border_width=2)
+    link = ctk.CTkButton(master=master_frame, text="SEARCH:", cursor="hand2", fg_color="black", hover_color=("blue","purple"), border_color=("black","white"), border_width=2)
     link.pack(anchor="se", pady="20 0")
     link.bind("<Button-1>", lambda e: webbrowser.open_new(result))
-    history_button = ctk.CTkButton(master=master_frame, text="HISTORY", fg_color="black", hover_color="blue", command=history)
+    history_button = ctk.CTkButton(master=master_frame, text="HISTORY", fg_color="black", hover_color=("blue","purple"), command=history , border_color=("black","white"), border_width=2)
     history_button.pack(anchor="se", pady="20 0")
     print("init succesful")
 
@@ -186,7 +186,7 @@ def wiki():
 def history():
     clear_page()
     back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color="white",
-                                hover_color="yellow", border_color="black", border_width=2, text_color="black")
+                                hover_color=("blue","yellow"), border_color="black", border_width=2, text_color="black")
     back_button.pack(pady=30)
     history = dh.readLastFive()
     for link in history:
@@ -197,7 +197,7 @@ def history():
 # init
 
 window = ctk.CTk()
-ctk.set_appearance_mode("system")
+ctk.set_appearance_mode("dark")
 window.geometry("1280x700")
 window.title("EasyDorks")
 window.configure(fg_color=("white","black"))
@@ -216,10 +216,10 @@ logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 
 b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop,
                          text_color=("black","white"), fg_color=("white","black"), border_color=("black","white"), bg_color=("white","black"),
-                         border_width=2, hover_color="purple")
+                         border_width=2, hover_color=("yellow","purple"))
 
 b_wiki = ctk.CTkButton(master=master_frame, command=dw.wiki, text="WIKI",text_color=("black","white"), fg_color=("white","black"), border_color=("black","white"), bg_color=("white","black"),
-                         border_width=2, hover_color="yellow")
+                         border_width=2, hover_color=("yellow","purple"))
 
 title_page()
 
