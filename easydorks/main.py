@@ -122,7 +122,7 @@ def main_loop():
     add_button = ctk.CTkButton(master=master_frame)
     input_frame = ctk.CTkFrame(master=master_frame, fg_color="white", border_color="black", border_width=2)
     home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME", fg_color="white",
-                                hover_color="yellow", border_color="black", border_width=2, text_color="black")
+                                hover_color="yellow", border_color=("black","white"), border_width=2, text_color="black")
     home_button.pack(anchor="nw")
     us_button = ctk.CTkButton(master=master_frame, command=about_us, text="ABOUT US", fg_color="white",
                               hover_color="yellow", border_color="black", border_width=2, text_color="black")
@@ -133,9 +133,9 @@ def main_loop():
     do_button = ctk.CTkButton(master=master_frame,
                               command=lambda dorks=list_dorks, info=list_info, label=result_label: do_dorks(dorks, info,
                                                                                                             result_label),
-                              text="DO", fg_color="black", hover_color="blue")
+                              text="DO", fg_color="black", hover_color="blue",border_color=("black","white"), border_width=2)
     do_button.pack(anchor="se")
-    link = ctk.CTkButton(master=master_frame, text="SEARCH:", cursor="hand2", fg_color="black", hover_color="blue")
+    link = ctk.CTkButton(master=master_frame, text="SEARCH:", cursor="hand2", fg_color="black", hover_color="blue", border_color=("black","white"), border_width=2)
     link.pack(anchor="se", pady="20 0")
     link.bind("<Button-1>", lambda e: webbrowser.open_new(result))
     print("init succesful")
@@ -168,7 +168,7 @@ def about_us():
 
 def wiki():
     wiki_window = ctk.CTk()
-    ctk.set_appearance_mode("light")
+    ctk.set_appearance_mode("system")
     wiki_window.geometry("700x800")
     wiki_window.title("WIKI")
     wiki_window.configure(fg_color="cyan")
@@ -178,28 +178,29 @@ def wiki():
 # init
 
 window = ctk.CTk()
-ctk.set_appearance_mode("light")
+ctk.set_appearance_mode("system")
 window.geometry("1280x700")
 window.title("EasyDorks")
-window.configure(fg_color="white")
+window.configure(fg_color=("white","black"))
 
 # logo
 
-master_frame = ctk.CTkFrame(master=window, fg_color="white")
+master_frame = ctk.CTkFrame(master=window, fg_color=("white","black"))
 
 img = ctk.CTkImage(
     light_image=Image.open("logo.png"),
-    dark_image=Image.open("logo.png"),
+    dark_image=Image.open("logo_dark.png"),
     size=(400, 400))
 logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 
 # start button
 
 b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop,
-                         text_color="black", fg_color="white", border_color="black", bg_color="white",
-                         border_width=2, hover_color="yellow")
+                         text_color=("black","white"), fg_color=("white","black"), border_color=("black","white"), bg_color=("white","black"),
+                         border_width=2, hover_color="purple")
 
-b_wiki = ctk.CTkButton(master=master_frame, command=dw.wiki, text="WIKI")
+b_wiki = ctk.CTkButton(master=master_frame, command=dw.wiki, text="WIKI",text_color=("black","white"), fg_color=("white","black"), border_color=("black","white"), bg_color=("white","black"),
+                         border_width=2, hover_color="yellow")
 
 title_page()
 
