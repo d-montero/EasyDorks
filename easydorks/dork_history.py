@@ -1,5 +1,5 @@
 def writeLastFive(search):
-    file_path = 'C:\\Users\\usuario\\Desktop\\Universidad\\Tercer año\\Ing.Software\\EasyDorks-1\\easydorks\\history.txt'
+    file_path = 'history.txt'
 
     with open(file_path, 'r') as file:
         lines = file.readlines()
@@ -27,20 +27,22 @@ def writeLastFive(search):
     
 def readLastFive():
     try:
-        with open('easydorks\history.txt', 'r') as file:
+        with open('history.txt', 'r') as file:
             lines = file.readlines()
 
         if lines:
+            history = []
             start = int(lines[0].strip()) # Obtener la primera línea y eliminar espacios en blanco
             end = len(lines)
 
             for line in range(start, end):
-                print(lines[line].strip())
+                history.append(lines[line].strip())
             
             end = start
             start = 1
             for line in range(start,end):
-                print(lines[line].strip())
+                history.append(lines[line].strip())
+            return history
         else:
             print("El archivo está vacío.")
     except FileNotFoundError:
@@ -48,10 +50,8 @@ def readLastFive():
     except Exception as e:
         print(f"Se produjo un error: {e}")
 
-
-
             
 
 #writeLastFive("jose")
 #writeLastFive("prueba")
-readLastFive()
+#readLastFive()

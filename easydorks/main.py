@@ -1,6 +1,7 @@
 import webbrowser
 import customtkinter as ctk
 import dork_functions as df
+import dork_history as dh
 import dork_wiki as dw
 from PIL import Image
 
@@ -48,6 +49,7 @@ def do_dorks(dorks, info, label):
     result = combine_google_search_urls(urls)
     print(result)
     label.configure(text=result)
+    dh.writeLastFive(result)
 
 
 # interfaces functions
@@ -138,6 +140,8 @@ def main_loop():
     link = ctk.CTkButton(master=master_frame, text="SEARCH:", cursor="hand2", fg_color="black", hover_color="blue")
     link.pack(anchor="se", pady="20 0")
     link.bind("<Button-1>", lambda e: webbrowser.open_new(result))
+    history_button = ctk.CTkButton(master=master_frame, text="HISTORY", fg_color="black", hover_color="blue", command=history)
+    history_button.pack(anchor="se", pady="20 0")
     print("init succesful")
 
 
@@ -166,6 +170,8 @@ def about_us():
     us.pack(pady="200")
 
 
+# wiki
+
 def wiki():
     wiki_window = ctk.CTk()
     ctk.set_appearance_mode("light")
@@ -173,6 +179,19 @@ def wiki():
     wiki_window.title("WIKI")
     wiki_window.configure(fg_color="cyan")
     wiki_window.mainloop()
+
+
+# history
+
+def history():
+    clear_page()
+    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color="white",
+                                hover_color="yellow", border_color="black", border_width=2, text_color="black")
+    back_button.pack(pady=30)
+    history = dh.readLastFive()
+    for link in history:
+        entry = ctk.CTkLabel(master=master_frame, text=link)
+        entry.pack(pady=10)
 
 
 # init
@@ -188,8 +207,8 @@ window.configure(fg_color="white")
 master_frame = ctk.CTkFrame(master=window, fg_color="white")
 
 img = ctk.CTkImage(
-    light_image=Image.open("easydorks\logo.png"),
-    dark_image=Image.open("easydorks\logo.png"),
+    light_image=Image.open("logo.png"),
+    dark_image=Image.open("logo.png"),
     size=(400, 400))
 logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 
