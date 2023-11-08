@@ -56,7 +56,7 @@ def do_dorks(dorks, info, label):
 
 def get_info_by_dork(dork, frame):
     if dork != "Elige opción":
-        return [ctk.CTkEntry(master=frame, border_color="black", border_width=2)]
+        return [ctk.CTkEntry(master=frame, border_color=("black","white"), border_width=2, corner_radius=10)]
     else:
         return []
 
@@ -84,7 +84,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
     # start elements
 
     dork_frame = ctk.CTkFrame(master=input_frame, border_color=("white","black"), fg_color=("white","black"), bg_color=("white","black"),
-                              border_width=2)
+                              border_width=2, corner_radius=10)
     dorks = [
         "Elige opción",
         "archivos tipo:",
@@ -103,13 +103,13 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
     list_info.append([])
     b_add = ctk.CTkButton(master=input_frame, text="+",
                           command=lambda: add_dork(input_frame, list_dorks, list_info, last_add),
-                          width=400, fg_color="black", hover_color="blue", border_color="black", border_width=2)
+                          width=400, fg_color="black", hover_color=("blue","purple"), border_color=("black","white"), border_width=2)
 
     last_add = b_add
     dork_select.configure(
         command=lambda *args, inside=inside_of_menu, frame_id=list_dorks.index(dork_select), dork_info=list_info, frame=dork_frame, add=last_add:
         dork_change(inside, frame_id, list_info, frame, add, *args), button_color=("white","black"), text_color=("black","white"),
-        bg_color=("white"), button_hover_color=("yellow","purple"))
+        bg_color=(("white","black")), button_hover_color=("yellow","purple"), corner_radius=10)
     # show elements
 
     dork_select.pack(side="left")
@@ -122,7 +122,7 @@ def main_loop():
     list_dorks = []
     list_info = []
     add_button = ctk.CTkButton(master=master_frame)
-    input_frame = ctk.CTkFrame(master=master_frame, fg_color=("white","black"), border_color=("black","white"), border_width=2)
+    input_frame = ctk.CTkFrame(master=master_frame, fg_color=("white","black"), border_color=("black","white"), border_width=2, corner_radius=10)
     home_button = ctk.CTkButton(master=master_frame, command=title_page, text="HOME", fg_color=("white","black"),
                                 hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
     home_button.pack(anchor="nw")
@@ -161,8 +161,8 @@ def title_page():
 
 def about_us():
     clear_page()
-    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color="white",
-                                hover_color="yellow", border_color="black", border_width=2, text_color="black")
+    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color="black",
+                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
     back_button.pack(pady=30)
     us = ctk.CTkLabel(master=master_frame, text="Programa realizado por el grupo Agile Eagles\n\n"
                                                 "Ingeniería de Software en el grado de Ciberseguridad de la Universidad Rey Juan Carlos\n\n\n"
@@ -185,8 +185,8 @@ def wiki():
 
 def history():
     clear_page()
-    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color="white",
-                                hover_color=("blue","yellow"), border_color="black", border_width=2, text_color="black")
+    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color="black",
+                                hover_color=("blue","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
     back_button.pack(pady=30)
     history = dh.readLastFive()
     for link in history:
