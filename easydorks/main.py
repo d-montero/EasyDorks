@@ -56,7 +56,7 @@ def do_dorks(dorks, info, label):
 
 def get_info_by_dork(dork, frame):
     if dork != "Elige opción":
-        return [ctk.CTkEntry(master=frame, border_color=("black","white"), border_width=2, corner_radius=10)]
+        return [ctk.CTkEntry(master=frame, border_color=("black","white"), border_width=2, corner_radius=10, fg_color=("white","black"))]
     else:
         return []
 
@@ -97,6 +97,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
                                     corner_radius=10, fg_color=("white","black"), text_color=("black","white"), width=250, bg_color=("white","black"),
                                     button_color=("white","black"), button_hover_color=("yellow","purple"), dropdown_fg_color=("white","black"),
                                     dropdown_hover_color=("yellow","purple"))
+
     # elements logic
 
     list_dorks.append(dork_select)
@@ -177,7 +178,7 @@ def wiki():
     ctk.set_appearance_mode("system")
     wiki_window.geometry("700x800")
     wiki_window.title("WIKI")
-    wiki_window.configure(fg_color="cyan")
+    wiki_window.configure(fg_color=("white","black"))
     wiki_window.mainloop()
 
 
