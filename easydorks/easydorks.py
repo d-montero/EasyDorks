@@ -48,7 +48,7 @@ else:
     print("\n" + " " + "»" * 78 + "\n")
 
 
-dorksFiletype= [
+dorksFiletype = [
     "filetype:pdf",
     "filetype:doc",
     "filetype:txt",
