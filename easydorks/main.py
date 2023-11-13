@@ -266,8 +266,8 @@ master_frame = ctk.CTkFrame(master=window, fg_color=("white","black"))
 myButtonFont = ctk.CTkFont(family="Helvetica", size=14, weight="bold")
 
 img = ctk.CTkImage(
-    light_image=Image.open("easydorks\logo.png"),
-    dark_image=Image.open("easydorks\logo_dark.png"),
+    light_image=Image.open("logo.png"),
+    dark_image=Image.open("logo_dark.png"),
     size=(400, 400))
 logo = ctk.CTkLabel(master=master_frame, text="", image=img)
 
