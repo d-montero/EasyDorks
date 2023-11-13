@@ -34,7 +34,7 @@ def main_loop(wiki_frame):
     for widget in wiki_frame.winfo_children():
         widget.forget()
     wiki_frame.pack(pady=50)
-    wiki_file = open('easydorks\wiki.json')
+    wiki_file = open("wiki.json")
     wiki_data = json.load(wiki_file)
 
     for dork in wiki_data.keys():

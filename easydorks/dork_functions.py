@@ -13,12 +13,28 @@ dorksFiletype = [
     "filetype:xml",
 ]
 
-dorksInurl = [
+dorksInUrl = [
     "inurl:"
 ]
 
-dorksInsite = [
+dorksInText = [
     "intext:"
+]
+
+dorksInTitle = [
+    "intitle:"
+]
+
+dorksInSite = [
+    "site:"
+]
+
+dorksInCoincidence = [
+    "\""
+]
+
+dorksInExclusion = [
+    "-"
 ]
 
 
@@ -35,7 +51,7 @@ def fileTypeDork(file_type):
 
 def searchInurlDork(keyword):
     results = []
-    for dork in dorksInurl:
+    for dork in dorksInUrl:
         query = f"{dork}{keyword}"
         encoded_query = urllib.parse.quote(query)
         search_url = f"https://www.google.com/search?q={encoded_query}"  # Cadena segura para url escapando caracteres especiales que no deberian estar
@@ -43,15 +59,50 @@ def searchInurlDork(keyword):
     return results
 
 
-def searchInsiteDork(keyword):
+def searchInTextDork(keyword):
     results = []
-    for dork in dorksInsite:
+    for dork in dorksInText:
         query = f"{dork}{keyword}"
         encoded_query = urllib.parse.quote(query)
         search_url = f"https://www.google.com/search?q={encoded_query}"
         results.append(search_url)
     return results
 
+def searchInTitleDork(keyword):
+    results = []
+    for dork in dorksInTitle:
+        query = f"{dork}{keyword}"
+        encoded_query = urllib.parse.quote(query)
+        search_url = f"https://www.google.com/search?q={encoded_query}"
+        results.append(search_url)
+    return results
+
+def searchInSiteDork(keyword):
+    results = []
+    for dork in dorksInSite:
+        query = f"{dork}{keyword}"
+        encoded_query = urllib.parse.quote(query)
+        search_url = f"https://www.google.com/search?q={encoded_query}"
+        results.append(search_url)
+    return results
+
+def searchInCoincidenceDork(keyword):
+    results = []
+    for dork in dorksInCoincidence:
+        query = f"{dork}{keyword}{dork}"
+        encoded_query = urllib.parse.quote(query)
+        search_url = f"https://www.google.com/search?q={encoded_query}"
+        results.append(search_url)
+    return results
+
+def searchInExclusionDork(keyword):
+    results = []
+    for dork in dorksInExclusion:
+        query = f"{dork}{keyword}"
+        encoded_query = urllib.parse.quote(query)
+        search_url = f"https://www.google.com/search?q={encoded_query}"
+        results.append(search_url)
+    return results
 
 def nada(arg):
     return [""]

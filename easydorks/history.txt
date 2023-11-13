@@ -1,6 +1,6 @@
 2
+https://www.google.com/search?q=%22pajaros%22%20AND%20-aves
 https://www.google.com/search?q=filetype%3Apdf
-https://www.google.com/search?q=inurl%3Asrfgerh%20AND%20intext%3A
-https://www.google.com/search?q=
-https://www.google.com/search?q=intext%3Aaaaaa
-https://www.google.com/search?q=intext%3A
+https://www.google.com/search?q=%22hola%22
+https://www.google.com/search?q=inurl%3Acaca
+https://www.google.com/search?q=filetype%3Apdf
