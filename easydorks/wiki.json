@@ -2,11 +2,36 @@
   "Archivos tipo - filetype": {
     "nombre": "filetype",
     "ejemplo": "filetype:pdf",
-    "info": " El dork `filetype` es una de las consultas avanzadas que se pueden utilizar en Google para restringir los resultados de búsqueda a un TIPO DE ARCHIVO ESPECÍFICO. Esto significa que puedes buscar archivos de un formato particular, como documentos PDF, hojas de cálculo Excel, presentaciones PowerPoint, y más. \n \n La sintaxis sería así: filetype:extensión \n \n Es importante tener en cuenta que algunos archivos pueden estar protegidos o configurados para no ser indexados por motores de búsqueda. Por lo tanto, no todos los archivos de un determinado tipo estarán necesariamente disponibles en los resultados de búsqueda. \n \n Es especialmente útil en situaciones donde estás buscando un tipo específico de archivo y deseas filtrar los resultados de búsqueda para obtener exactamente lo que necesitas."
+    "info": " El dork `filetype` es una de las consultas avanzadas que se pueden utilizar en Google para restringir los resultados de búsqueda a un TIPO DE ARCHIVO ESPECÍFICO. Esto significa que puedes buscar archivos de un formato particular, como documentos PDF, hojas de cálculo Excel, presentaciones PowerPoint, y más. \n \n La sintaxis sería así: filetype:extensión \n \n Es importante tener en cuenta que algunos archivos pueden estar protegidos o configurados para no ser indexados por motores de búsqueda. Por lo tanto, no todos los archivos de un determinado tipo estarán necesariamente disponibles en los resultados de búsqueda. \n \n Es especialmente útil en situaciones donde estás buscando un tipo específico de archivo y deseas filtrar los resultados de búsqueda para obtener exactamente lo que necesitas. \n \n"
   },
   "URL contiene - inurl": {
     "nombre": "inurl",
     "ejemplo": "inurl:\"seguridad informatica\"",
-    "info": "El dork `inurl` es otra consulta avanzada que puedes utilizar en Google para restringir los resultados de búsqueda a páginas web que contengan una determinada palabra o frase en su URL. Esto puede ser útil para encontrar páginas específicas dentro de un sitio web o para buscar contenido relacionado con un tema en particular \n \n La sintaxis sería así: inurl:palabra \n \n El dork inurl puede ser combinado con otros dorks o consultas de búsqueda para refinar aún más los resultados. Por ejemplo, puedes combinarlo con términos de búsqueda específicos para encontrar páginas web que contengan tanto la palabra clave en la URL como en el contenido."
+    "info": "El dork `inurl` es otra consulta avanzada que puedes utilizar en Google para restringir los resultados de búsqueda a páginas web que contengan una determinada palabra o frase en su URL. Esto puede ser útil para encontrar páginas específicas dentro de un sitio web o para buscar contenido relacionado con un tema en particular \n \n La sintaxis sería así: inurl:palabra \n \n El dork inurl puede ser combinado con otros dorks o consultas de búsqueda para refinar aún más los resultados. Por ejemplo, puedes combinarlo con términos de búsqueda específicos para encontrar páginas web que contengan tanto la palabra clave en la URL como en el contenido. \n \n"
+  },
+  "Sitio web - site": {
+    "nombre": "site",
+    "ejemplo": "site:easydorks.es",
+    "info": "El dork `inurl` es otra consulta avanzada que puedes utilizar en Google para restringir los resultados de búsqueda a un sitio web o dominio específico. Esta función es útil cuando deseas limitar tus búsquedas a un solo sitio para encontrar información específica. \n \n La sintaxis sería así: site:dominio \n La consulta de ejemplo devolverá resultados de búsqueda que provienen exclusivamente del sitio web de EasyDorks. \n site:gov \n la búsqueda se limitará a resultados que pertenezcan a sitios web con la extensión de dominio \".gov\" \n \n La consulta site: también puede utilizarse para buscar en subdominios específicos. Por ejemplo, site:blog.example.com restringirá los resultados a aquellos que provengan del subdominio \"blog\" de \"example.com\". \n \n Es útil cuando necesitas buscar información específica en un sitio web confiable o cuando deseas limitar tus resultados a un dominio de confianza. \n Puede ser utilizado por profesionales de SEO para analizar la indexación de Google de un sitio web específico. \n \n"
+  },
+"Coincidencia exacta - \"\"": {
+    "nombre": "\"\"",
+    "ejemplo": "\"easy dorks\"",
+    "info": "Al utilizar comillas dobles (\" \"), se indica al motor de búsqueda que busque exactamente esa palabra o frase, en ese orden específico. \n \n Si pones una frase entre comillas dobles, como \"easy dorks\", Google buscará exactamente esa secuencia de palabras. Esto es útil cuando deseas resultados que contengan la frase completa y no solo las palabras por separado \n Al buscar una palabra específica entre comillas, como \"easy\", obtendrás resultados que contengan la palabra exacta \"easy\" y no otras palabras que puedan tener una parte de esa palabra. \n"
+  },
+"Exclusión de los resultados - \"-\"": {
+    "nombre": "-",
+    "ejemplo": "-dorks",
+    "info": "Colocar un signo menos (\"-\") delante de una palabra en una consulta de búsqueda en Google tiene el propósito de excluir esa palabra de los resultados. Esta técnica es útil cuando deseas refinar tus búsquedas y eliminar ciertos términos que podrían generar resultados no deseados. \n \n Al poner un signo menos delante de una palabra, excluyes resultados que contienen esa palabra específica. Por ejemplo, si buscas \"jaguar -coche\", obtendrás resultados relacionados con la palabra \"jaguar\", pero no aquellos que incluyan la palabra \"coche\". \n También puede ser útil para refinar las búsquedas \"león -marino\" o para evitar ambigüedades "
+  },
+"Contenido del título - intitle": {
+    "nombre": "intitle",
+    "ejemplo": "intitle:dorks",
+    "info": " El dork `intitle` es una consulta avanzada que puedes utilizar en motores de búsqueda, como Google, para restringir los resultados a páginas web que tengan un título específico. Al utilizar intitle:, indicas al motor de búsqueda que solo muestre resultados donde la palabra o frase especificada esté presente en el título de la página. \n \n La sintaxis básica sería \"intitle:palabra\" \n"
+  },
+"Contenido del título - intext": {
+    "nombre": "intext",
+    "ejemplo": "intext:dorks",
+    "info": " El dork `intext:` es otra consulta avanzada que puedes utilizar en motores de búsqueda como Google para restringir los resultados a páginas web que contengan una palabra o frase específica esté presente en el cuerpo del texto de la página.\n \n La sintaxis básica sería \"intext:palabra\" \n \n Utiliza intext: para encontrar páginas que contengan información detallada sobre un tema específico en lugar de simplemente tener la palabra clave en el título."
   }
 }
