@@ -203,22 +203,9 @@ def title_page():
 def about_us():
     clear_page()
 
-    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color="black",
+    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color=("white","black"),
                                 hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
 
-    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color="white",
-                                hover_color="yellow", border_color="black", border_width=2, text_color="black")
-
-    # Función para cambiar el color del texto cuando el cursor entra en el botón
-    def on_enter(event):
-        back_button.configure({"text_color": "red"})
-
-    # Función para cambiar el color del texto cuando el cursor sale del botón
-    def on_leave(event):
-        back_button.configure({"text_color": "black"})
-
-    back_button.bind("<Enter>", on_enter)  # Cuando el cursor entra en el botón
-    back_button.bind("<Leave>", on_leave)  # Cuando el cursor sale del botón
 
     back_button.pack(pady=30)
     us = ctk.CTkLabel(master=master_frame, text="Aplicación creada por el grupo Agile Eagles\n\n"
@@ -242,12 +229,12 @@ def wiki():
 
 def history():
     clear_page()
-    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color="black",
-                                hover_color=("blue","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
+    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color=("white","black"),
+                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
     back_button.pack(pady=30)
     history = dh.readLastFive()
     for link in history:
-        entry = ctk.CTkLabel(master=master_frame, text=link)
+        entry = ctk.CTkLabel(master=master_frame, text=link, text_color=("black","white"))
         entry.pack(pady=10)
 
 
