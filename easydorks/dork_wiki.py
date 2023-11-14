@@ -40,8 +40,8 @@ def main_loop(wiki_frame):
     for dork in wiki_data.keys():
         wiki_entry = ctk.CTkButton(master=wiki_frame,
                                    command=lambda info=wiki_data[dork], frame=wiki_frame: dork_page(info, frame),
-                                   text=dork, fg_color="white",
-                                   hover_color="yellow", border_color="black", border_width=2, text_color="black")
+                                   text=dork, fg_color=("white","black"),
+                                   hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
         wiki_entry.pack(pady=10)
 
 
@@ -50,8 +50,8 @@ def dork_page(dork_info, frame):
         widget.forget()
     title = ctk.CTkLabel(master=frame, text=dork_info["nombre"], font=("Arial", 40))
     back_button = ctk.CTkButton(master=frame, command=lambda wiki_frame=frame: main_loop(frame), text="\u2770",
-                                fg_color="white",
-                                hover_color="yellow", border_color="black", border_width=2, text_color="black")
+                                fg_color=("white","black"),
+                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
     back_button.pack(pady=30)
     ejemplo = ctk.CTkLabel(master=frame, text="ejemplo: " + dork_info["ejemplo"], font=("Arial", 20))
     info = ctk.CTkLabel(master=frame, font=("Arial", 10), text=dork_info["info"], wraplength=400)
