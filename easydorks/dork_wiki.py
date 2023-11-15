@@ -12,6 +12,7 @@ def init():
         wiki_window = ctk.CTkToplevel(fg_color=("white", "black"))
         wiki_window.protocol("WM_DELETE_WINDOW", on_closing)
         wiki_window.geometry("700x800")
+        wiki_window.title("Wiki EasyDorks")
         wiki_frame = ctk.CTkScrollableFrame(master=wiki_window, width=600, height=700, fg_color=("white", "black"))
         main_loop(wiki_frame)
         already_open = True
@@ -41,20 +42,20 @@ def main_loop(wiki_frame):
         wiki_entry = ctk.CTkButton(master=wiki_frame,
                                    command=lambda info=wiki_data[dork], frame=wiki_frame: dork_page(info, frame),
                                    text=dork, fg_color=("white","black"),
-                                   hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
-        wiki_entry.pack(pady=10)
+                                   hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), font=ctk.CTkFont(family="Helvetica", size=14, weight="bold"))
+        wiki_entry.pack(pady=15)
 
 
 def dork_page(dork_info, frame):
     for widget in frame.winfo_children():
         widget.forget()
-    title = ctk.CTkLabel(master=frame, text=dork_info["nombre"], font=("Arial", 40))
-    back_button = ctk.CTkButton(master=frame, command=lambda wiki_frame=frame: main_loop(frame), text="\u2770",
+    title = ctk.CTkLabel(master=frame, text=dork_info["nombre"], font=ctk.CTkFont(family="Arial", size=40, weight="bold"))
+    back_button = ctk.CTkButton(master=frame, command=lambda wiki_frame=frame: main_loop(frame), text="<",
                                 fg_color=("white","black"),
-                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
+                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), font=ctk.CTkFont(family="Helvetica", size=14, weight="bold"))
     back_button.pack(pady=30)
-    ejemplo = ctk.CTkLabel(master=frame, text="ejemplo: " + dork_info["ejemplo"], font=("Arial", 20))
-    info = ctk.CTkLabel(master=frame, font=("Arial", 10), text=dork_info["info"], wraplength=400)
-    title.pack(pady=20)
-    ejemplo.pack(pady=10)
+    ejemplo = ctk.CTkLabel(master=frame, text="Ejemplo: " + dork_info["ejemplo"], font=("Arial", 25))
+    info = ctk.CTkLabel(master=frame, font=("Arial", 15), text=dork_info["info"], wraplength=400)
+    title.pack(pady=30)
+    ejemplo.pack(pady=20)
     info.pack()

@@ -84,7 +84,7 @@ def get_info_by_dork(dork, frame):
 def dork_change(name, frame_id, dork_info, frame, last_add, *args):
     if name.get() != "Elige una opción":
         if frame_id == len(dork_info) - 1:
-            last_add.pack(side="left", padx="10 0")
+            last_add.pack(side="left", padx="10 0", pady=(0, 10))
     else:
         last_add.pack_forget()
 
@@ -139,7 +139,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
 
     dork_select.pack(side="left")
     dork_frame.pack(side="top", anchor="center", pady="20", padx="10")
-    input_frame.pack(side="top", anchor="center", pady=(150, 0))
+    input_frame.pack(side="top", anchor="center", pady=(200, 0))
 
 def main_loop():
     myButtonFont = ctk.CTkFont(family="Helvetica", size=14, weight="bold")
@@ -160,10 +160,6 @@ def main_loop():
                               hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), font=myButtonFont)
     us_button.pack(anchor="n", side="left", pady=30)
 
-
-    switch_var = customtkinter.StringVar(value=initializeSwitchVar())
-    switch = customtkinter.CTkSwitch(master=master_frame, command=chooseAppearanceMode,
-                                     variable=switch_var, onvalue="on", offvalue="off", text="", fg_color="white", button_color=("black", "white"), border_color=("black", "white"), border_width=2, progress_color="black", switch_width=45)
 
     moon.place(x=1044.5, y=27.5)
     switch.pack(side="right", anchor="n", pady=30, padx=(8, 0))
@@ -192,9 +188,16 @@ def main_loop():
 def title_page():
     clear_page()
     master_frame.forget()
-    logo.pack(pady="70 0")
-    b_inicio.pack(pady=(160, 20), side="left", anchor="center", padx=(40, 37))
-    b_wiki.pack(pady=(160, 20), side="left", anchor="center")
+
+    moon.place(x=600, y=27.5)
+    switch.pack(side="right", anchor="n", pady=30, padx=(8, 0))
+    sun.pack(side="right", anchor="n", pady=29)
+    moon.lift(switch)
+
+    logo.pack(pady=(70, 0), side="top", padx=(125, 0))
+
+    b_inicio.pack(pady=(160, 30), side="left", anchor="center", padx=(153, 37))
+    b_wiki.pack(pady=(160, 30), side="top", anchor="center")
     master_frame.pack()
 
 
@@ -202,16 +205,22 @@ def title_page():
 
 def about_us():
     clear_page()
+    moon.place_forget()
+    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="<", fg_color=("white","black"),
+                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), font=myButtonFont, width=75)
 
-    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color=("white","black"),
-                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
-
-
-    back_button.pack(pady=30)
     us = ctk.CTkLabel(master=master_frame, text="Aplicación creada por el grupo Agile Eagles\n\n"
                                                 "Ingeniería de Software, del Grado en Ingeniería de la Ciberseguridad de la Universidad Rey Juan Carlos\n\n\n"
                                                 "Correo de contacto --> contact@agileagles.com\n\n", font=("Helvetica", 24))
-    us.pack(pady="200")
+    us.pack(pady=175, side="bottom")
+
+    back_button.pack(pady=30, side="left", padx=(30, 0))
+    moon.place(x=1070, y=27.5)
+    switch.pack(side="right", anchor="n", pady=30, padx=(8, 0))
+    sun.pack(side="right", anchor="n", pady=29)
+    moon.lift(switch)
+
+
 
 
 # wiki
@@ -220,7 +229,7 @@ def wiki():
     wiki_window = ctk.CTk()
     ctk.set_appearance_mode("system")
     wiki_window.geometry("700x800")
-    wiki_window.title("WIKI")
+    wiki_window.title("Wiki EasyDorks")
     wiki_window.configure(fg_color=("white","black"))
     wiki_window.mainloop()
 
@@ -229,13 +238,24 @@ def wiki():
 
 def history():
     clear_page()
-    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="\u2770", fg_color=("white","black"),
-                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"))
-    back_button.pack(pady=30)
+    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="<", fg_color=("white","black"),
+                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), width=75, font=myButtonFont)
+
     history = dh.readLastFive()
-    for link in history:
-        entry = ctk.CTkLabel(master=master_frame, text=link, text_color=("black","white"))
-        entry.pack(pady=10)
+    length = len(history)
+    for index, link in enumerate(history):
+        reversed_index = length - 1 - index
+        entry = ctk.CTkLabel(master=master_frame, text=str(reversed_index+1)+": "+link, text_color=("black", "white"), font=myButtonFont)
+        entry.pack(pady=15, side="bottom")
+
+    back_button.pack(pady=(30, 100), side="left", padx=(30, 0))
+
+    moon.place(x=980, y=27.5)
+    switch.pack(side="right", anchor="n", pady=(30, 100), padx=(8, 0))
+    sun.pack(side="right", anchor="n", pady=(29, 101), padx=(800, 0))
+    moon.lift(switch)
+
+
 
 
 # init
@@ -273,6 +293,12 @@ image2 = ctk.CTkImage(
     dark_image=Image.open("white_sun.png"),
     size=(15, 15))
 sun = ctk.CTkLabel(master=master_frame, text="", image=image2)
+
+# switch appearance mode
+
+switch_var = customtkinter.StringVar(value=initializeSwitchVar())
+switch = customtkinter.CTkSwitch(master=master_frame, command=chooseAppearanceMode,
+                                     variable=switch_var, onvalue="on", offvalue="off", text="", fg_color="white", button_color=("black", "white"), border_color=("black", "white"), border_width=2, progress_color="black", switch_width=45)
 
 # start button
 
