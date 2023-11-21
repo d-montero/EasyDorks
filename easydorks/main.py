@@ -128,7 +128,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
     list_info.append([])
     b_add = ctk.CTkButton(master=input_frame, text="+",
                           command=lambda: add_dork(input_frame, list_dorks, list_info, last_add),
-                          width=400, fg_color="black", hover_color=("blue","purple"), border_color=("black","white"), border_width=2, font=optionMenu_Font)
+                          width=400, fg_color=("white", "black"), hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, font=optionMenu_Font, text_color=("black", "white"))
 
     last_add = b_add
     dork_select.configure(
@@ -168,7 +168,7 @@ def main_loop():
     moon.lift(switch)
 
     add_dork(input_frame, list_dorks, list_info, add_button)
-    result_label = ctk.CTkLabel(master=master_frame, text=result, font=myButtonFont)
+    result_label = ctk.CTkLabel(master=master_frame, text=result, font=ctk.CTkFont(family="Helvetica", size=10, weight="bold"))
     result_label.pack(pady=(50, 80), anchor="center")
     do_button = ctk.CTkButton(master=master_frame,
                               command=lambda dorks=list_dorks, info=list_info, label=result_label: do_dorks(dorks, info,

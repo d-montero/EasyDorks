@@ -1,6 +1,1 @@
-3
-https://www.google.com/search?q=filetype%3Apdf
-https://www.google.com/search?q=%22hola%22
-https://www.google.com/search?q=inurl%3Acaca
-https://www.google.com/search?q=filetype%3Apdf
-https://www.google.com/search?q=inurl%3Ahola
+0
