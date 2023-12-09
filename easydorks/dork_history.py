@@ -8,16 +8,16 @@ def writeLastFive(search):
         else:
             i = 0
     i = (i + 1) % 5
-    search_lines = lines[1:]  # Excluye la primera línea (índice)
-    search_lines.append(search + '\n')
-    
-    if len(search_lines) > 5:
-        search_lines = search_lines[-5:]
+    print(i)
+    if len(lines) < 6:
+        lines.append(search + '\n')
+    else:
+        lines[i+1] = search + '\n'
 
-    search_lines.insert(0, str(i) + '\n')  # Inserta i en la primera posición
+    lines[0] = str(i) + '\n'
 
     with open(file_path, 'w') as file:
-        for line in search_lines:
+        for line in lines:
             file.write(line)
 
   
@@ -32,16 +32,15 @@ def readLastFive():
 
         if lines:
             history = []
-            start = int(lines[0].strip()) # Obtener la primera línea y eliminar espacios en blanco
+            start = int(lines[0].strip())  # Obtener la primera línea y eliminar espacios en blanco
             end = len(lines)
 
-            for line in range(start, end):
-                history.append(lines[line].strip())
-            
-            end = start
-            start = 1
-            for line in range(start,end):
-                history.append(lines[line].strip())
+            for _ in range(end-1):
+                print(str(start))
+                history.append(lines[start+1])
+                start = (start-1) % 5
+
+            print(history)
             return history
         else:
             print("El archivo está vacío.")

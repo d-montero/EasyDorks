@@ -243,9 +243,8 @@ def history():
 
     history = dh.readLastFive()
     length = len(history)
-    for index, link in enumerate(history):
-        reversed_index = length - 1 - index
-        entry = ctk.CTkLabel(master=master_frame, text=str(reversed_index+1)+": "+link, text_color=("black", "white"), font=myButtonFont)
+    for i in range(length-1, -1, -1):
+        entry = ctk.CTkLabel(master=master_frame, text=history[i], text_color=("black", "white"), font=myButtonFont)
         entry.pack(pady=15, side="bottom")
 
     back_button.pack(pady=(30, 100), side="left", padx=(30, 0))
