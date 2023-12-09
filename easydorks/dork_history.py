@@ -6,7 +6,7 @@ def writeLastFive(search):
         if len(lines) > 1:
             i = int(lines[0])
         else:
-            i = 0
+            i = -1
     i = (i + 1) % 5
     print(i)
     if len(lines) < 6:
