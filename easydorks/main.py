@@ -241,10 +241,10 @@ def history():
     back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="<", fg_color=("white","black"),
                                 hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), width=75, font=myButtonFont)
 
-    history = dh.readLastFive()
-    length = len(history)
+    history_list = dh.readLastFive(False)
+    length = len(history_list)
     for i in range(length-1, -1, -1):
-        entry = ctk.CTkLabel(master=master_frame, text=history[i], text_color=("black", "white"), font=myButtonFont)
+        entry = ctk.CTkLabel(master=master_frame, text=history_list[i], text_color=("black", "white"), font=myButtonFont)
         entry.pack(pady=15, side="bottom")
 
     back_button.pack(pady=(30, 100), side="left", padx=(30, 0))

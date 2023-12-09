@@ -20,12 +20,8 @@ def writeLastFive(search):
         for line in lines:
             file.write(line)
 
-  
 
- 
-
-    
-def readLastFive():
+def readLastFive(check_reversed):
     try:
         with open('history.txt', 'r') as file:
             lines = file.readlines()
@@ -41,6 +37,8 @@ def readLastFive():
                 start = (start-1) % 5
 
             print(history)
+            if check_reversed:
+                history.reverse()
             return history
         else:
             print("El archivo está vacío.")
