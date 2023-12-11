@@ -178,7 +178,7 @@ def main_loop():
     link = ctk.CTkButton(master=master_frame, text="BUSCAR", cursor="hand2", fg_color=("white", "black"), hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black", "white"), font=myButtonFont)
     link.pack(anchor="s", pady="20 0", side="left", padx=(0, 20))
     link.bind("<Button-1>", lambda e: webbrowser.open_new(result))
-    history_button = ctk.CTkButton(master=master_frame, text="HISTORIAL", fg_color=("white", "black"), hover_color=("yellow","purple"), command=history, border_color=("black","white"), border_width=2, text_color=("black", "white"), font=myButtonFont)
+    history_button = ctk.CTkButton(master=master_frame, text="HISTORIAL", fg_color=("white", "black"), hover_color=("yellow","purple"), command=lambda reverse=False: history(reverse), border_color=("black","white"), border_width=2, text_color=("black", "white"), font=myButtonFont)
     history_button.pack(anchor="s", pady="20 0", side="left")
     print("init succesful")
 
@@ -236,12 +236,12 @@ def wiki():
 
 # history
 
-def history():
+def history(reverse):
     clear_page()
     back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="<", fg_color=("white","black"),
                                 hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), width=75, font=myButtonFont)
 
-    history_list = dh.readLastFive(False)
+    history_list = dh.readLastFive(reverse)
     length = len(history_list)
     for i in range(length-1, -1, -1):
         entry = ctk.CTkLabel(master=master_frame, text=history_list[i], text_color=("black", "white"), font=myButtonFont)
@@ -253,6 +253,11 @@ def history():
     switch.pack(side="right", anchor="n", pady=(30, 100), padx=(8, 0))
     sun.pack(side="right", anchor="n", pady=(29, 101), padx=(800, 0))
     moon.lift(switch)
+
+    order_button = ctk.CTkButton(master=master_frame, command=lambda reverse=not reverse: history(reverse), text="change order", fg_color=("white", "black"),
+                                hover_color=("yellow", "purple"), border_color=("black", "white"), border_width=2,
+                                text_color=("black", "white"), width=75, font=myButtonFont)
+    order_button.pack(side="bottom")
 
 
 
