@@ -137,5 +137,8 @@ def serachPrefer(keyword):
 
 def searchIntervalo(keyword):
     results = []
-    print(keyword[0], keyword[1])
+    query = f"{keyword[0]}{'..'}{keyword[1]}"
+    encoded_query = urllib.parse.quote(query)
+    search_url = f"https://www.google.com/search?q={encoded_query}"
+    results.append(search_url)
     return results
