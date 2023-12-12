@@ -1,4 +1,5 @@
 import urllib.parse
+import requests
 
 # dork functions
 
@@ -142,3 +143,94 @@ def searchIntervalo(keyword):
     search_url = f"https://www.google.com/search?q={encoded_query}"
     results.append(search_url)
     return results
+
+
+##Funciones de busqueda de dorks para shodan
+
+
+SHODAN_API_KEY = "tu_clave_de_api_de_shodan"  # Reemplaza con tu clave de API de Shodan
+
+def searchDatabase(keyword):
+    results = []
+    keyword = keyword[0]
+    query = f"{keyword}"  
+    shodan_url = f"https://api.shodan.io/shodan/host/search?key={SHODAN_API_KEY}&query={query}"
+
+    try:
+        response = requests.get(shodan_url)
+        if response.status_code == 200:
+            data = response.json()
+            for result in data['matches']:
+                ip_address = result['ip_str']
+                results.append(ip_address)
+        else:
+            results.append(f"Error en la solicitud: {response.status_code}")
+    except Exception as e:
+        results.append(f"Error: {str(e)}")
+
+    return results
+
+
+#Ejemplo para la prueba "mysql port 3306"
+
+def searchPort(keyword):
+    results = []
+    keyword = keyword[0]
+    query = f"port:{keyword}"  
+    shodan_url = f"https://api.shodan.io/shodan/host/search?key={SHODAN_API_KEY}&query={query}"
+
+    try:
+        response = requests.get(shodan_url)
+        if response.status_code == 200:
+            data = response.json()
+            for result in data['matches']:
+                ip_address = result['ip_str']
+                results.append(ip_address)
+        else:
+            results.append(f"Error en la solicitud: {response.status_code}")
+    except Exception as e:
+        results.append(f"Error: {str(e)}")
+
+    return results
+
+def specificOperatingSystem(keyword):
+    results = []
+    keyword = keyword[0]
+    query = f"os:{keyword}"
+    shodan_url = f"https://api.shodan.io/shodan/host/search?key={SHODAN_API_KEY}&query={query}"
+    
+    try:
+        response = requests.get(shodan_url)
+        if response.status_code == 200:
+            data = response.json()
+            for result in data['matches']:
+                ip_address = result['ip_str']
+                results.append(ip_address)
+        else:
+            results.append(f"Error en la solicitud: {response.status_code}")
+    except Exception as e:
+        results.append(f"Error: {str(e)}")
+
+    return results
+
+def webServers(keyword):
+    results = []
+    keyword = keyword[0]
+    query = f"product:{keyword}"
+    shodan_url = f"https://api.shodan.io/shodan/host/search?key={SHODAN_API_KEY}&query={query}"
+    
+    try:
+        response = requests.get(shodan_url)
+        if response.status_code == 200:
+            data = response.json()
+            for result in data['matches']:
+                ip_address = result['ip_str']
+                results.append(ip_address)
+        else:
+            results.append(f"Error en la solicitud: {response.status_code}")
+    except Exception as e:
+        results.append(f"Error: {str(e)}")
+
+    return results
+
+
