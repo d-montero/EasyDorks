@@ -40,6 +40,7 @@ dorksInExclusion = [
 
 def fileTypeDork(file_type):
     results = []
+    file_type = file_type[0]
     for dork in dorksFiletype:
         if dork.split(":")[1] == file_type:
             query = f"{dork}"
@@ -51,6 +52,7 @@ def fileTypeDork(file_type):
 
 def searchInurlDork(keyword):
     results = []
+    keyword = keyword[0]
     for dork in dorksInUrl:
         query = f"{dork}{keyword}"
         encoded_query = urllib.parse.quote(query)
@@ -61,6 +63,7 @@ def searchInurlDork(keyword):
 
 def searchInTextDork(keyword):
     results = []
+    keyword = keyword[0]
     for dork in dorksInText:
         query = f"{dork}{keyword}"
         encoded_query = urllib.parse.quote(query)
@@ -70,6 +73,7 @@ def searchInTextDork(keyword):
 
 def searchInTitleDork(keyword):
     results = []
+    keyword = keyword[0]
     for dork in dorksInTitle:
         query = f"{dork}{keyword}"
         encoded_query = urllib.parse.quote(query)
@@ -79,6 +83,7 @@ def searchInTitleDork(keyword):
 
 def searchInSiteDork(keyword):
     results = []
+    keyword = keyword[0]
     for dork in dorksInSite:
         query = f"{dork}{keyword}"
         encoded_query = urllib.parse.quote(query)
@@ -88,6 +93,7 @@ def searchInSiteDork(keyword):
 
 def searchInCoincidenceDork(keyword):
     results = []
+    keyword = keyword[0]
     for dork in dorksInCoincidence:
         query = f"{dork}{keyword}{dork}"
         encoded_query = urllib.parse.quote(query)
@@ -97,6 +103,7 @@ def searchInCoincidenceDork(keyword):
 
 def searchInExclusionDork(keyword):
     results = []
+    keyword = keyword[0]
     for dork in dorksInExclusion:
         query = f"{dork}{keyword}"
         encoded_query = urllib.parse.quote(query)
@@ -110,6 +117,7 @@ def nada(arg):
 
 def serachRelated(keyword):
     results = []
+    keyword = keyword[0]
     query = f"{'related:'}{keyword}"
     encoded_query = urllib.parse.quote(query)
     search_url = f"https://www.google.com/search?q={encoded_query}"
@@ -119,6 +127,7 @@ def serachRelated(keyword):
 
 def serachPrefer(keyword):
     results = []
+    keyword = keyword[0]
     query = f"{'prefer:'}{keyword}"
     encoded_query = urllib.parse.quote(query)
     search_url = f"https://www.google.com/search?q={encoded_query}"
@@ -127,4 +136,6 @@ def serachPrefer(keyword):
 
 
 def searchIntervalo(keyword):
-    print(keyword)
+    results = []
+    print(keyword[0], keyword[1])
+    return results
