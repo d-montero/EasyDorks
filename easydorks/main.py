@@ -40,7 +40,9 @@ str_to_func = {
     "Contenido de la url": df.searchInurlDork,
     "Contenido del título": df.searchInTitleDork,
     "Contenido de la página": df.searchInTextDork,
-    "Exclusión de los resultados": df.searchInExclusionDork
+    "Exclusión de los resultados": df.searchInExclusionDork,
+    "Contenido relacionado": df.serachRelated,
+    "Preferencia de contenido": df.serachPrefer
 }
 
 
@@ -113,7 +115,9 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
         "Contenido de la url",
         "Contenido del título",
         "Contenido de la página",
-        "Exclusión de los resultados"
+        "Exclusión de los resultados",
+        "Contenido relacionado",
+        "Preferencia de contenido"
     ]
     inside_of_menu = ctk.StringVar()
     inside_of_menu.set(dorks[0])

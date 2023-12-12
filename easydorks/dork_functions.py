@@ -106,3 +106,22 @@ def searchInExclusionDork(keyword):
 
 def nada(arg):
     return [""]
+
+
+def serachRelated(keyword):
+    results = []
+    query = f"{'related:'}{keyword}"
+    encoded_query = urllib.parse.quote(query)
+    search_url = f"https://www.google.com/search?q={encoded_query}"
+    results.append(search_url)
+    return results
+
+
+def serachPrefer(keyword):
+    results = []
+    query = f"{'prefer:'}{keyword}"
+    encoded_query = urllib.parse.quote(query)
+    search_url = f"https://www.google.com/search?q={encoded_query}"
+    results.append(search_url)
+    return results
+
