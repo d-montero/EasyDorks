@@ -125,3 +125,6 @@ def serachPrefer(keyword):
     results.append(search_url)
     return results
 
+
+def searchIntervalo(keyword):
+    print(keyword)

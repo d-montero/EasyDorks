@@ -42,7 +42,8 @@ str_to_func = {
     "Contenido de la página": df.searchInTextDork,
     "Exclusión de los resultados": df.searchInExclusionDork,
     "Contenido relacionado": df.serachRelated,
-    "Preferencia de contenido": df.serachPrefer
+    "Preferencia de contenido": df.serachPrefer,
+    "Intervalo": df.searchIntervalo
 }
 
 
@@ -77,7 +78,12 @@ def do_dorks(dorks, info, label):
 # interfaces functions
 
 def get_info_by_dork(dork, frame):
-    if dork != "Elige una opción":
+    if dork == "Intervalo":
+        return [ctk.CTkEntry(master=frame, border_color=("black", "white"), border_width=2, corner_radius=10,
+                             fg_color=("white", "black")),
+                ctk.CTkEntry(master=frame, border_color=("black", "white"), border_width=2, corner_radius=10,
+                             fg_color=("white", "black"))]
+    elif dork != "Elige una opción":
         return [ctk.CTkEntry(master=frame, border_color=("black","white"), border_width=2, corner_radius=10, fg_color=("white","black"))]
     else:
         return []
@@ -117,7 +123,8 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
         "Contenido de la página",
         "Exclusión de los resultados",
         "Contenido relacionado",
-        "Preferencia de contenido"
+        "Preferencia de contenido",
+        "Intervalo"
     ]
     inside_of_menu = ctk.StringVar()
     inside_of_menu.set(dorks[0])
