@@ -156,17 +156,20 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
     input_frame.pack(side="top", anchor="center", pady=(200, 0))
 
 def main_loop():
+    text_var.set("ORDENAR POR BÚSQUEDA MÁS ANTIGUA")
+
     myButtonFont = ctk.CTkFont(family="Helvetica", size=14, weight="bold")
 
     clear_page()
     list_dorks = []
     list_info = []
+
     add_button = ctk.CTkButton(master=master_frame)
     input_frame = ctk.CTkFrame(master=master_frame, fg_color=("white","black"), border_color=("black","white"), border_width=2, corner_radius=10)
 
 
     home_button = ctk.CTkButton(master=master_frame, command=title_page, text="PÁGINA PRINCIPAL", fg_color=("white","black"),
-                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), font=myButtonFont, )
+                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), font=myButtonFont)
     home_button.pack(anchor="n", side="left", padx=(0, 20), pady=30)
 
 
@@ -250,13 +253,35 @@ def wiki():
 
 # history
 
+def on_button_click(reverse):
+    reverse = not reverse
+
+    if reverse:
+        text_var.set("ORDENAR POR BÚSQUEDA MÁS RECIENTE")
+    else:
+        text_var.set("ORDENAR POR BÚSQUEDA MÁS ANTIGUA")
+
+    history(reverse)
+
+
 def history(reverse):
     clear_page()
-    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="<", fg_color=("white","black"),
-                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), width=75, font=myButtonFont)
 
     history_list = dh.readLastFive(reverse)
     length = len(history_list)
+
+    order_button = ctk.CTkButton(master=master_frame, command=lambda: on_button_click(reverse), textvariable=text_var,
+                                 fg_color=("white", "black"),
+                                 hover_color=("yellow", "purple"), border_color=("black", "white"), border_width=2,
+                                 text_color=("black", "white"), width=75, font=myButtonFont, border_spacing=10)
+
+    if length > 0:
+        order_button.pack(side="bottom", pady=(100, 0))
+
+    back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="<", fg_color=("white","black"),
+                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), width=75, font=myButtonFont)
+
+
     for i in range(length-1, -1, -1):
         entry = ctk.CTkLabel(master=master_frame, text=history_list[i], text_color=("black", "white"), font=myButtonFont)
         entry.pack(pady=15, side="bottom")
@@ -268,13 +293,6 @@ def history(reverse):
     sun.pack(side="right", anchor="n", pady=(29, 101), padx=(800, 0))
     moon.lift(switch)
 
-    order_button = ctk.CTkButton(master=master_frame, command=lambda reverse=not reverse: history(reverse), text="change order", fg_color=("white", "black"),
-                                hover_color=("yellow", "purple"), border_color=("black", "white"), border_width=2,
-                                text_color=("black", "white"), width=75, font=myButtonFont)
-    order_button.pack(side="bottom")
-
-
-
 
 # init
 
@@ -283,6 +301,12 @@ ctk.set_appearance_mode("dark")
 window.geometry("1280x700")
 window.title("EasyDorks")
 window.configure(fg_color=("white","black"))
+
+
+# Sort Button Text
+
+text_var = ctk.StringVar()
+text_var.set("ORDENAR POR BÚSQUEDA MÁS ANTIGUA")
 
 # logo
 
