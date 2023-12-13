@@ -60,14 +60,17 @@ def do_dorks(dorks, info, label):
         if not info_in_dork:
             info_in_dork = "nada"
         else:
-            info_in_dork = info_in_dork[0].get()
-        print(info_in_dork)
-        url = str_to_func[dorks[dork_num].get()](info_in_dork)[0]
+            info_list = []
+            for i in info_in_dork:
+                info_list.append(i.get())
+        print(info_list)
+        url = str_to_func[dorks[dork_num].get()](info_list)
         if url != "":
             print(url)
             urls.append(url)
     for i in range(len(urls)):
-        urls[i] = urls[i][urls[i].index("q=") + len("q="):len(urls[i])]
+        url = urls[i][0]
+        urls[i] = url[url.index("q=") + len("q="):len(url)]
     global result
     result = combine_google_search_urls(urls)
     print(result)
