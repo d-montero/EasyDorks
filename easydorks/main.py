@@ -18,6 +18,7 @@ def clearResult():
 # init with google dorks
 
 global dorksType
+global dorksType_history
 
 def clear_page():
     for widget in master_frame.winfo_children():
@@ -339,10 +340,30 @@ def on_button_click_history(reverse):
     history(reverse)
 
 
+def on_button_click_change(reverse):
+    global dorksType_history
+    if dorksType_history == 0:
+        dorksType_history = 1
+        text_buttonExchangerV2.set("GOOGLE")
+    else:
+        dorksType_history = 0
+        text_buttonExchangerV2.set("SHODAN")
+
+    history(reverse)
+
+
 def history(reverse):
     clear_page()
 
-    history_list = dh.readLastFive(reverse)
+    history_list_Google, history_list_Shodan = dh.readLastFive(reverse)
+
+    if dorksType_history == 0:
+        history_list = history_list_Google[:]
+        name = "Google"
+    else:
+        history_list = history_list_Shodan[:]
+        name = "Shodan"
+
     length = len(history_list)
 
     order_button = ctk.CTkButton(master=master_frame, command=lambda: on_button_click_history(reverse), textvariable=text_var,
@@ -350,23 +371,38 @@ def history(reverse):
                                  hover_color=("yellow", "purple"), border_color=("black", "white"), border_width=2,
                                  text_color=("black", "white"), width=75, font=myButtonFont, border_spacing=10)
 
+    emptyHistory = ctk.CTkLabel(master=master_frame, text="El historial de "+name+" está vacío", font=myButtonFont)
+
     if length > 0:
-        order_button.pack(side="bottom", pady=(100, 0))
+        order_button.pack(side="bottom", pady=(50, 0))
+    else:
+        emptyHistory.pack(side="bottom", pady=(50, 0))
 
     back_button = ctk.CTkButton(master=master_frame, command=main_loop, text="<", fg_color=("white","black"),
                                 hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), width=75, font=myButtonFont)
+
+    change_button = ctk.CTkButton(master=master_frame, command=lambda: on_button_click_change(reverse), textvariable=text_buttonExchangerV2,
+                                  fg_color=("white", "black"),
+                                  hover_color=("yellow", "purple"), border_color=("black", "white"), border_width=2,
+                                  text_color=("black", "white"), font=myButtonFont, image=image_Arrows, compound="left",
+                                  anchor="center")
 
 
     for i in range(length-1, -1, -1):
         entry = ctk.CTkLabel(master=master_frame, text=history_list[i], text_color=("black", "white"), font=myButtonFont)
         entry.pack(pady=15, side="bottom")
 
-    back_button.pack(pady=(30, 100), side="left", padx=(30, 0))
+
+    change_button.pack(pady=(0, 50), anchor="center", side="bottom")
+
+    back_button.pack(pady=(30, 75), side="left", padx=(30, 0))
 
     moon.place(x=980, y=27.5)
-    switch.pack(side="right", anchor="n", pady=(30, 100), padx=(8, 0))
-    sun.pack(side="right", anchor="n", pady=(29, 101), padx=(800, 0))
+    switch.pack(side="right", anchor="n", pady=(30, 75), padx=(8, 0))
+    sun.pack(side="right", anchor="n", pady=(29, 76), padx=(800, 0))
     moon.lift(switch)
+
+
 
 
 # init
@@ -387,6 +423,11 @@ text_var.set("ORDENAR POR BÚSQUEDA MÁS ANTIGUA")
 
 text_buttonExchanger = ctk.StringVar()
 text_buttonExchanger.set("SHODAN")
+
+# Exchanger Shodan-Google History Button
+
+text_buttonExchangerV2 = ctk.StringVar()
+text_buttonExchangerV2.set("SHODAN")
 
 # logo
 
@@ -442,6 +483,10 @@ b_wiki = ctk.CTkButton(master=master_frame, command=dw.wiki, text="WIKI",text_co
 # init with google dorks (0 = Google / 1 = Shodan)
 
 dorksType = 0
+
+# init with google history (0 = Google / 1 = Shodan)
+
+dorksType_history = 0
 
 title_page()
 
