@@ -9,8 +9,15 @@ import dork_wiki as dw
 from PIL import Image
 
 # https://github.com/d-montero/EasyDorks
-result = "https://www.google.com"
+result = ""
 
+def clearResult():
+    global result
+    result = ""
+
+# init with google dorks
+
+global dorksType
 
 def clear_page():
     for widget in master_frame.winfo_children():
@@ -29,10 +36,33 @@ def initializeSwitchVar():
     else:
         return "on"
 
+# dorks
+
+dorks_Google = [
+        "Elige una opción",
+        "Coincidencia exacta",
+        "Sitio web",
+        "Tipo de archivo",
+        "Contenido de la url",
+        "Contenido del título",
+        "Contenido de la página",
+        "Exclusión de los resultados",
+        "Contenido relacionado",
+        "Preferencia de contenido",
+        "Intervalo"
+    ]
+
+dorks_Shodan = [
+    "Elige una opción",
+    "Base de datos",
+    "Puerto",
+    "Sistema operativo",
+    "Servidor web"
+]
 
 # do function
 
-str_to_func = {
+str_to_func_Google = {
     "Elige una opción": df.nada,
     "Coincidencia exacta": df.searchInCoincidenceDork,
     "Sitio web": df.searchInSiteDork,
@@ -46,10 +76,25 @@ str_to_func = {
     "Intervalo": df.searchIntervalo
 }
 
+str_to_func_Shodan = {
+    "Elige una opción": df.nada,
+    "Base de datos": df.searchDatabase,
+    "Puerto": df.searchPort,
+    "Sistema operativo": df.specificOperatingSystem,
+    "Servidor web": df.webServers
+}
 
-def combine_google_search_urls(urls, operator="AND"):
-    combined_query = f"%20{operator}%20".join(urls)
-    search_url = f"https://www.google.com/search?q={combined_query}"
+
+
+
+def combine_search_urls(urls, operator="AND"):
+    combined_query_google = f"%20{operator}%20".join(urls)
+    combined_query_shodan = f"%20".join(urls)
+    if dorksType == 0:
+        search_url = f"https://www.google.com/search?q={combined_query_google}"
+    else:
+        search_url = f"https://www.shodan.io/search?query={combined_query_shodan}"
+
     return search_url
 
 
@@ -64,15 +109,24 @@ def do_dorks(dorks, info, label):
             for i in info_in_dork:
                 info_list.append(i.get())
         print(info_list)
-        url = str_to_func[dorks[dork_num].get()](info_list)
+
+        if dorksType == 0:
+            url = str_to_func_Google[dorks[dork_num].get()](info_list)
+        else:
+            url = str_to_func_Shodan[dorks[dork_num].get()](info_list)
+
         if url != "":
             print(url)
             urls.append(url)
     for i in range(len(urls)):
         url = urls[i][0]
-        urls[i] = url[url.index("q=") + len("q="):len(url)]
+        if dorksType == 0:
+            urls[i] = url[url.index("q=") + len("q="):len(url)]
+        else:
+            urls[i] = url[url.index("query=") + len("query="):len(url)]
+
     global result
-    result = combine_google_search_urls(urls)
+    result = combine_search_urls(urls)
     print(result)
     label.configure(text=result)
     dh.writeLastFive(result)
@@ -109,39 +163,41 @@ def dork_change(name, frame_id, dork_info, frame, last_add, *args):
     dork_info[frame_id] = info
 
 
-def add_dork(input_frame, list_dorks, list_info, last_add):
-    last_add.pack_forget()
-    optionMenu_Font = ctk.CTkFont(family="Helvetica", size=14)
-    # start elements
 
-    dork_frame = ctk.CTkFrame(master=input_frame, border_color=("white","black"), fg_color=("white","black"), bg_color=("white","black"),
-                              border_width=2, corner_radius=10)
-    dorks = [
-        "Elige una opción",
-        "Coincidencia exacta",
-        "Sitio web",
-        "Tipo de archivo",
-        "Contenido de la url",
-        "Contenido del título",
-        "Contenido de la página",
-        "Exclusión de los resultados",
-        "Contenido relacionado",
-        "Preferencia de contenido",
-        "Intervalo"
-    ]
+def add_dork(input_frame, list_dorks, list_info, last_add, dorksType):
+    last_add.pack_forget()
+
+    optionMenu_Font = ctk.CTkFont(family="Helvetica", size=14)
+
     inside_of_menu = ctk.StringVar()
-    inside_of_menu.set(dorks[0])
-    dork_select = ctk.CTkOptionMenu(master=dork_frame, variable=inside_of_menu, values=dorks,
-                                    corner_radius=10, fg_color=("white","black"), text_color=("black","white"), width=250, bg_color=("white","black"),
-                                    button_color=("white","black"), button_hover_color=("yellow","purple"), dropdown_fg_color=("white","black"),
-                                    dropdown_hover_color=("yellow","purple"), font=optionMenu_Font, dropdown_font=optionMenu_Font)
+
+    inside_of_menu.set(dorks_Google[0])
+
+    dork_frame = ctk.CTkFrame(master=input_frame, border_color=("white", "black"), fg_color=("white", "black"),
+                              bg_color=("white", "black"),
+                              border_width=2, corner_radius=10)
+
+    dork_select = ctk.CTkOptionMenu(master=dork_frame, variable=inside_of_menu, values=dorks_Google,
+                                    corner_radius=10, fg_color=("white", "black"), text_color=("black", "white"),
+                                    width=250, bg_color=("white", "black"),
+                                    button_color=("white", "black"), button_hover_color=("yellow", "purple"),
+                                    dropdown_fg_color=("white", "black"),
+                                    dropdown_hover_color=("yellow", "purple"), font=optionMenu_Font,
+                                    dropdown_font=optionMenu_Font)
+
+    if dorksType == 0:
+        inside_of_menu.set(dorks_Google[0])
+        dork_select.configure(values=dorks_Google)
+    else:
+        inside_of_menu.set(dorks_Shodan[0])
+        dork_select.configure(values=dorks_Shodan)
 
     # elements logic
 
     list_dorks.append(dork_select)
     list_info.append([])
     b_add = ctk.CTkButton(master=input_frame, text="+",
-                          command=lambda: add_dork(input_frame, list_dorks, list_info, last_add),
+                          command=lambda: add_dork(input_frame, list_dorks, list_info, last_add, dorksType),
                           width=400, fg_color=("white", "black"), hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, font=optionMenu_Font, text_color=("black", "white"))
 
     last_add = b_add
@@ -153,9 +209,23 @@ def add_dork(input_frame, list_dorks, list_info, last_add):
 
     dork_select.pack(side="left")
     dork_frame.pack(side="top", anchor="center", pady="20", padx="10")
-    input_frame.pack(side="top", anchor="center", pady=(200, 0))
+    input_frame.pack(side="top", anchor="center", pady=(50, 0))
+
+
+def on_button_click_main():
+    global dorksType
+    if dorksType == 0:
+        dorksType = 1
+        text_buttonExchanger.set("GOOGLE")
+    else:
+        dorksType = 0
+        text_buttonExchanger.set("SHODAN")
+
+    main_loop()
 
 def main_loop():
+    clearResult()
+
     text_var.set("ORDENAR POR BÚSQUEDA MÁS ANTIGUA")
 
     myButtonFont = ctk.CTkFont(family="Helvetica", size=14, weight="bold")
@@ -165,8 +235,8 @@ def main_loop():
     list_info = []
 
     add_button = ctk.CTkButton(master=master_frame)
-    input_frame = ctk.CTkFrame(master=master_frame, fg_color=("white","black"), border_color=("black","white"), border_width=2, corner_radius=10)
-
+    input_frame = ctk.CTkFrame(master=master_frame, fg_color=("white", "black"), border_color=("black", "white"),
+                               border_width=2, corner_radius=10)
 
     home_button = ctk.CTkButton(master=master_frame, command=title_page, text="PÁGINA PRINCIPAL", fg_color=("white","black"),
                                 hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), font=myButtonFont)
@@ -184,7 +254,12 @@ def main_loop():
 
     moon.lift(switch)
 
-    add_dork(input_frame, list_dorks, list_info, add_button)
+    change_button = ctk.CTkButton(master=master_frame, command=on_button_click_main, textvariable=text_buttonExchanger, fg_color=("white","black"),
+                                hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), font=myButtonFont, image=image_Arrows, compound="left", anchor="center")
+
+    change_button.pack(pady=(150, 0), anchor="center")
+
+    add_dork(input_frame, list_dorks, list_info, add_button, dorksType)
     result_label = ctk.CTkLabel(master=master_frame, text=result, font=ctk.CTkFont(family="Helvetica", size=10, weight="bold"))
     result_label.pack(pady=(50, 80), anchor="center")
     do_button = ctk.CTkButton(master=master_frame,
@@ -253,7 +328,7 @@ def wiki():
 
 # history
 
-def on_button_click(reverse):
+def on_button_click_history(reverse):
     reverse = not reverse
 
     if reverse:
@@ -270,7 +345,7 @@ def history(reverse):
     history_list = dh.readLastFive(reverse)
     length = len(history_list)
 
-    order_button = ctk.CTkButton(master=master_frame, command=lambda: on_button_click(reverse), textvariable=text_var,
+    order_button = ctk.CTkButton(master=master_frame, command=lambda: on_button_click_history(reverse), textvariable=text_var,
                                  fg_color=("white", "black"),
                                  hover_color=("yellow", "purple"), border_color=("black", "white"), border_width=2,
                                  text_color=("black", "white"), width=75, font=myButtonFont, border_spacing=10)
@@ -308,6 +383,11 @@ window.configure(fg_color=("white","black"))
 text_var = ctk.StringVar()
 text_var.set("ORDENAR POR BÚSQUEDA MÁS ANTIGUA")
 
+# Exchanger Shodan-Google Button
+
+text_buttonExchanger = ctk.StringVar()
+text_buttonExchanger.set("SHODAN")
+
 # logo
 
 master_frame = ctk.CTkFrame(master=window, fg_color=("white","black"))
@@ -336,6 +416,14 @@ image2 = ctk.CTkImage(
     size=(15, 15))
 sun = ctk.CTkLabel(master=master_frame, text="", image=image2)
 
+# arrows icon
+
+image_Arrows = ctk.CTkImage(
+    light_image=Image.open("black_arrows.png"),
+    dark_image=Image.open("white_arrows.png"),
+    size=(17, 17)
+)
+
 # switch appearance mode
 
 switch_var = customtkinter.StringVar(value=initializeSwitchVar())
@@ -351,6 +439,12 @@ b_inicio = ctk.CTkButton(master=master_frame, text="INICIO", command=main_loop,
 b_wiki = ctk.CTkButton(master=master_frame, command=dw.wiki, text="WIKI",text_color=("black","white"), fg_color=("white","black"), border_color=("black","white"), bg_color=("white","black"),
                          border_width=2, hover_color=("yellow","purple"), font=myButtonFont)
 
+# init with google dorks (0 = Google / 1 = Shodan)
+
+dorksType = 0
+
 title_page()
 
 window.mainloop()
+
+
