@@ -38,6 +38,10 @@ def main_loop(wiki_frame):
     wiki_file = open("wiki.json", encoding='utf8')
     wiki_data = json.load(wiki_file)
 
+    google_title = ctk.CTkLabel(master=wiki_frame, text='GOOGLE',
+                         font=ctk.CTkFont(family="Arial", size=40, weight="bold"))
+    google_title.pack()
+
     for dork in wiki_data.keys():
         wiki_entry = ctk.CTkButton(master=wiki_frame,
                                    command=lambda info=wiki_data[dork], frame=wiki_frame: dork_page(info, frame),
@@ -45,6 +49,16 @@ def main_loop(wiki_frame):
                                    hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), font=ctk.CTkFont(family="Helvetica", size=14, weight="bold"))
         wiki_entry.pack(pady=15)
 
+    shodan_title = ctk.CTkLabel(master=wiki_frame, text='SHODAN',
+                                font=ctk.CTkFont(family="Arial", size=40, weight="bold"))
+    shodan_title.pack()
+
+    for dork in wiki_data.keys():
+        wiki_entry = ctk.CTkButton(master=wiki_frame,
+                                   command=lambda info=wiki_data[dork], frame=wiki_frame: dork_page(info, frame),
+                                   text=dork, fg_color=("white","black"),
+                                   hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), font=ctk.CTkFont(family="Helvetica", size=14, weight="bold"))
+        wiki_entry.pack(pady=15)
 
 def dork_page(dork_info, frame):
     for widget in frame.winfo_children():
