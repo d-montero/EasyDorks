@@ -33,5 +33,20 @@
     "nombre": "-",
     "ejemplo": "-dorks",
     "info": "Colocar un signo menos (\"-\") delante de una palabra en una consulta de búsqueda en Google tiene el propósito de excluir esa palabra de los resultados. Esta técnica es útil cuando deseas refinar tus búsquedas y eliminar ciertos términos que podrían generar resultados no deseados. \n \n Al poner un signo menos delante de una palabra, excluyes resultados que contienen esa palabra específica. Por ejemplo, si buscas \"jaguar -coche\", obtendrás resultados relacionados con la palabra \"jaguar\", pero no aquellos que incluyan la palabra \"coche\". \n También puede ser útil para refinar las búsquedas \"león -marino\" o para evitar ambigüedades "
+  },
+    "Contenido relacionado --- related": {
+    "nombre": "related",
+    "ejemplo": "related:easydorks.es",
+    "info": "El dork related: se utiliza para buscar sitios web que estén relacionados con una URL específica. Esto te permite encontrar páginas web similares o que tengan contenido afín al sitio que estás consultando. \n La sintaxis básica del dork related: es la siguiente: related:URL \n Google intentará mostrar páginas que considera similares o relacionadas con la URL proporcionada. Sin embargo, la precisión de estos resultados puede variar. \n Los resultados obtenidos a través de related: pueden incluir sitios web con temas similares, recursos relacionados o páginas que tengan una audiencia superpuesta a la del sitio especificado."
+  },
+    "Preferencia de contenido --- prefer": {
+    "nombre": "prefer",
+    "ejemplo": "dork prefer:google",
+    "info": "El dork prefer: se utiliza para especificar preferencias en la búsqueda, mostrando resultados basados en las preferencias del usuario. \n La sintaxis sería así: palabraClave prefer:categoría\n jaguar prefer:animal \n jaguar prefer:coche \n jaguar prefer:animal mostraría información relacionada con el animal jaguar, como su hábitat, comportamiento, especies, etc. \n jaguar prefer:coche proporcionaría información sobre el automóvil de la marca Jaguar, incluyendo modelos, características, historia de la empresa, etc."
+  },
+    "Intervalo de búsqueda --- \"..\" ": {
+    "nombre": "intervalo",
+    "ejemplo": "\"laptop\" $500..$1000",
+    "info": "El \"Intervalo de Búsqueda\" es una técnica avanzada que permite restringir los resultados de búsqueda dentro de un rango específico de valores numéricos, fechas o cualquier otra medida cuantitativa. Esta técnica se utiliza en algunos motores de búsqueda para obtener resultados que estén dentro de un intervalo definido por dos valores. \n La sintaxis sería esta: \"término de búsqueda\" valorInicial..valorFinal "
   }
 }

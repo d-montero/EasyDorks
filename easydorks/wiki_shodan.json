@@ -1,0 +1,23 @@
+{
+  "Base de datos --- Búsqueda básica ": {
+    "nombre": "        ",
+    "ejemplo": "mongodb",
+    "info": "La \"Búsqueda Básica\" en Shodan permite a los usuarios buscar dispositivos, servicios y datos específicos que estén expuestos en internet. En el caso de las bases de datos, se pueden utilizar consultas para identificar bases de datos que están accesibles públicamente. \n Identificación de Bases de Datos Expuestas: Utiliza la búsqueda básica para encontrar bases de datos accesibles públicamente en internet. \n Análisis de Vulnerabilidades: Esta función de Shodan puede ser utilizada para descubrir posibles exposiciones de datos sensibles y ayudar en la identificación de vulnerabilidades. \n A partir de esta búsqueda, se pueden aplicar filtros y técnicas avanzadas para obtener información más detallada o específica sobre bases de datos expuestas en la red."
+  },
+    "Puerto --- port ": {
+    "nombre": "port",
+    "ejemplo": "port:81",
+    "info": "El operador port: en Shodan se utiliza para buscar dispositivos o servicios que estén escuchando en un puerto específico en internet. Este operador es fundamental para identificar sistemas o servicios que estén activos en puertos específicos, lo que puede ser útil para la identificación de vulnerabilidades o para descubrir dispositivos expuestos en línea. \n La sintaxis es la siguiente: port:numeroPuerto \n Es posible buscar por rangos de puertos utilizando la notación port:numeroPuerto1-numeroPuerto2."
+  },
+    "Sistema operativo --- os ": {
+    "nombre": "os",
+    "ejemplo": "os:Windows",
+    "info": "El operador os: en Shodan se emplea para buscar dispositivos que estén utilizando un sistema operativo específico. Esto permite identificar dispositivos en función del sistema operativo que ejecutan, lo que puede ser valioso para evaluar la distribución de sistemas en la red y para comprender mejor la infraestructura de un entorno en línea. \n La sintaxis básica sería la siguiente os:nombreSistemaOperativo. \n Es importante utilizar los nombres de sistema operativo correctos y reconocidos por Shodan para obtener resultados precisos."
+  },
+  "Servidor web --- product ": {
+    "nombre": "product",
+    "ejemplo": "product:Apache",
+    "info": "El operador product: en Shodan se utiliza para buscar dispositivos o servicios basados en el nombre del producto. Esta función es útil para encontrar dispositivos específicos, aplicaciones o software que estén expuestos en internet. \n La sintaxis sería product:nombreProducto \n El operador product: permite filtrar los resultados para encontrar dispositivos o servicios que estén utilizando un producto o software específico.\n Es crucial utilizar el nombre del producto correctamente para obtener resultados precisos. \n Conocer qué productos están siendo utilizados puede ser valioso para la evaluación de seguridad y para comprender las versiones de software que están accesibles en internet."
+  }
+
+}
