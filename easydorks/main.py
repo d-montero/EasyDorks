@@ -10,6 +10,7 @@ from PIL import Image
 
 # https://github.com/d-montero/EasyDorks
 result = ""
+global add_button, remove_button
 
 def clearResult():
     global result
@@ -138,21 +139,40 @@ def do_dorks(dorks, info, label):
 def get_info_by_dork(dork, frame):
     if dork == "Intervalo":
         return [ctk.CTkEntry(master=frame, border_color=("black", "white"), border_width=2, corner_radius=10,
-                             fg_color=("white", "black")),
+                             fg_color=("white", "black"), width=100),
                 ctk.CTkEntry(master=frame, border_color=("black", "white"), border_width=2, corner_radius=10,
-                             fg_color=("white", "black"))]
+                             fg_color=("white", "black"), width=100)]
     elif dork != "Elige una opción":
         return [ctk.CTkEntry(master=frame, border_color=("black","white"), border_width=2, corner_radius=10, fg_color=("white","black"))]
     else:
         return []
 
 
-def dork_change(name, frame_id, dork_info, frame, last_add, *args):
+def dork_change(name, frame_id, dork_info, frame, listDorks, *args):
+    global add_button, remove_button
+    add_button.pack_forget()
+    remove_button.pack_forget()
+
     if name.get() != "Elige una opción":
         if frame_id == len(dork_info) - 1:
-            last_add.pack(side="left", padx="10 0", pady=(0, 10))
+            add_button.pack(padx=10, pady=10, fill="x")
+
+            if len(listDorks) >= 2:
+                add_button.pack_forget()
+                remove_button.pack_forget()
+                add_button.pack(side="left", padx=10, pady=10)
+                remove_button.pack(side="right", padx=10, pady=10)
+            else:
+                remove_button.pack_forget()
     else:
-        last_add.pack_forget()
+
+        add_button.pack_forget()
+        remove_button.pack_forget()
+        remove_subsequent_dorks(frame_id, listDorks, dork_info)
+
+        if len(listDorks) > 1:
+            remove_button.pack(padx=10, pady=10, fill="x")
+
 
     print(name.get() + " " + str(frame_id))
     for elem in dork_info[frame_id]:
@@ -165,8 +185,12 @@ def dork_change(name, frame_id, dork_info, frame, last_add, *args):
 
 
 
-def add_dork(input_frame, list_dorks, list_info, last_add, dorksType):
-    last_add.pack_forget()
+def add_dork(input_frame, list_dorks, list_info, dorksType):
+    global add_button, remove_button
+    add_button.pack_forget()
+    remove_button.pack_forget()
+
+
 
     optionMenu_Font = ctk.CTkFont(family="Helvetica", size=14)
 
@@ -180,7 +204,7 @@ def add_dork(input_frame, list_dorks, list_info, last_add, dorksType):
 
     dork_select = ctk.CTkOptionMenu(master=dork_frame, variable=inside_of_menu, values=dorks_Google,
                                     corner_radius=10, fg_color=("white", "black"), text_color=("black", "white"),
-                                    width=250, bg_color=("white", "black"),
+                                    width=200, bg_color=("white", "black"),
                                     button_color=("white", "black"), button_hover_color=("yellow", "purple"),
                                     dropdown_fg_color=("white", "black"),
                                     dropdown_hover_color=("yellow", "purple"), font=optionMenu_Font,
@@ -197,20 +221,64 @@ def add_dork(input_frame, list_dorks, list_info, last_add, dorksType):
 
     list_dorks.append(dork_select)
     list_info.append([])
-    b_add = ctk.CTkButton(master=input_frame, text="+",
-                          command=lambda: add_dork(input_frame, list_dorks, list_info, last_add, dorksType),
-                          width=400, fg_color=("white", "black"), hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, font=optionMenu_Font, text_color=("black", "white"))
+    b_add = ctk.CTkButton(master=input_frame, text="", image=image_Add,
+                          command=lambda: add_dork(input_frame, list_dorks, list_info, dorksType),
+                          border_spacing=5, fg_color=("white", "black"), hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, font=optionMenu_Font, text_color=("black", "white"), width=175)
+    remove_add = ctk.CTkButton(master=input_frame, text="", image=image_Remove,
+                          command=lambda: remove_dork(list_dorks, list_info),
+                          border_spacing=5, fg_color=("white", "black"), hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, font=optionMenu_Font, text_color=("black", "white"), width=175)
 
-    last_add = b_add
+
+    add_button = b_add
+    remove_button = remove_add
     dork_select.configure(
-        command=lambda *args, inside=inside_of_menu, frame_id=list_dorks.index(dork_select), dork_info=list_info, frame=dork_frame, add=last_add:
-        dork_change(inside, frame_id, list_info, frame, add, *args), button_color=("white","black"), text_color=("black","white"),
+        command=lambda *args, inside=inside_of_menu, frame_id=list_dorks.index(dork_select), dork_info=list_info, frame=dork_frame, listDorks=list_dorks:
+        dork_change(inside, frame_id, list_info, frame, listDorks, *args), button_color=("white","black"), text_color=("black","white"),
         bg_color=(("white","black")), button_hover_color=("yellow","purple"), corner_radius=10)
     # show elements
 
     dork_select.pack(side="left")
     dork_frame.pack(side="top", anchor="center", pady="20", padx="10")
     input_frame.pack(side="top", anchor="center", pady=(50, 0))
+    if len(list_dorks) > 1:
+        remove_button.pack(padx=10, pady=10, fill="x")
+
+
+def remove_dork(list_dorks, list_info):
+    global add_button, remove_button
+    if list_dorks:
+        last_dork = list_dorks.pop()
+        last_dork.master.destroy()
+
+        if list_info:
+            last_info = list_info.pop()
+            for widget in last_info:
+                widget.destroy()
+        if len(list_dorks) < 2:
+            remove_button.pack_forget()
+            add_button.pack_forget()
+            add_button.pack(padx=10, pady=10, fill="x")
+        else:
+            add_button.pack_forget()
+            remove_button.pack_forget()
+            add_button.pack(side="left", padx=10, pady=10)
+            remove_button.pack(side="right", padx=10, pady=10)
+
+
+def remove_subsequent_dorks(start_index, list_dorks, list_info):
+    global add_button, remove_button
+    remove_button.pack_forget()
+    add_button.pack_forget()
+
+    while len(list_dorks) > start_index + 1:
+        last_dork = list_dorks.pop()
+        last_dork.master.destroy()
+
+        if list_info:
+            last_info = list_info.pop()
+            for widget in last_info:
+                widget.destroy()
+
 
 
 def on_button_click_main():
@@ -225,6 +293,7 @@ def on_button_click_main():
     main_loop()
 
 def main_loop():
+    global add_button, remove_button
     clearResult()
 
     text_var.set("ORDENAR POR BÚSQUEDA MÁS ANTIGUA")
@@ -236,6 +305,7 @@ def main_loop():
     list_info = []
 
     add_button = ctk.CTkButton(master=master_frame)
+    remove_button = ctk.CTkButton(master=master_frame)
     input_frame = ctk.CTkFrame(master=master_frame, fg_color=("white", "black"), border_color=("black", "white"),
                                border_width=2, corner_radius=10)
 
@@ -260,9 +330,9 @@ def main_loop():
 
     change_button.pack(pady=(150, 0), anchor="center")
 
-    add_dork(input_frame, list_dorks, list_info, add_button, dorksType)
-    result_label = ctk.CTkLabel(master=master_frame, text=result, font=ctk.CTkFont(family="Helvetica", size=10, weight="bold"))
-    result_label.pack(pady=(50, 80), anchor="center")
+    add_dork(input_frame, list_dorks, list_info, dorksType)
+    result_label = ctk.CTkLabel(master=master_frame, text=result, font=ctk.CTkFont(family="Helvetica", size=8, weight="bold"))
+    result_label.pack(pady=(35, 35), anchor="center")
     do_button = ctk.CTkButton(master=master_frame,
                               command=lambda dorks=list_dorks, info=list_info, label=result_label: do_dorks(dorks, info,
                                                                                                             result_label),
@@ -429,6 +499,11 @@ text_buttonExchanger.set("SHODAN")
 text_buttonExchangerV2 = ctk.StringVar()
 text_buttonExchangerV2.set("SHODAN")
 
+# test StringVar
+
+test = ctk.StringVar()
+test.set("Elige una opción")
+
 # logo
 
 master_frame = ctk.CTkFrame(master=window, fg_color=("white","black"))
@@ -463,6 +538,22 @@ image_Arrows = ctk.CTkImage(
     light_image=Image.open("black_arrows.png"),
     dark_image=Image.open("white_arrows.png"),
     size=(17, 17)
+)
+
+# add icon
+
+image_Add = ctk.CTkImage(
+    light_image=Image.open("black_add.png"),
+    dark_image=Image.open("white_add.png"),
+    size=(15, 15)
+)
+
+# remove icon
+
+image_Remove = ctk.CTkImage(
+    light_image=Image.open("black_remove.png"),
+    dark_image=Image.open("white_remove.png"),
+    size=(15, 15)
 )
 
 # switch appearance mode
