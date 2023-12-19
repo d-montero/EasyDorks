@@ -49,6 +49,9 @@ def main_loop(wiki_frame):
                                    hover_color=("yellow","purple"), border_color=("black","white"), border_width=2, text_color=("black","white"), font=ctk.CTkFont(family="Helvetica", size=14, weight="bold"))
         wiki_entry.pack(pady=15)
 
+    wiki_file = open("wiki_shodan.json", encoding='utf8')
+    wiki_data = json.load(wiki_file)
+
     shodan_title = ctk.CTkLabel(master=wiki_frame, text='SHODAN',
                                 font=ctk.CTkFont(family="Arial", size=40, weight="bold"))
     shodan_title.pack()
